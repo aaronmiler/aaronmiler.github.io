@@ -2,10 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yoursite.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://aaronmiler.github.io
+title: Aaron Miler
+subtitle:
+author: Aaron Miler
 simple_search: http://google.com/search
 description:
 
@@ -27,7 +27,7 @@ email:
 
 # If publishing to a subdirectory as in http://site.com/project set 'root: /project'
 root: /
-permalink: /blog/:year/:month/:day/:title/
+permalink: /blog/:title/
 source: source
 destination: public
 plugins: plugins
@@ -41,7 +41,7 @@ rdiscount:
     - smart
 pygments: false # default python pygments have been replaced by pygments.rb
 
-paginate: 10          # Posts per page on the blog index
+paginate: 9        # Posts per page on the blog index
 pagination_dir: blog  # Directory base for pagination URLs eg. /blog/page/2/
 recent_posts: 5       # Posts in the sidebar Recent Posts section
 excerpt_link: "Read on &rarr;"  # "Continue reading" link text at the bottom of excerpted articles
@@ -63,13 +63,13 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 # ----------------------- #
 
 # Github repositories
-github_user:
-github_repo_count: 0
+github_user: aaronmiler
+github_repo_count: 3
 github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user: aaronmiler
 twitter_tweet_button: true
 
 # Google +1
@@ -78,11 +78,11 @@ google_plus_one_size: medium
 
 # Google Plus Profile
 # Hidden: No visible button, just add author information to search results
-googleplus_user:
+googleplus_user: false
 googleplus_hidden: false
 
 # Pinboard
-pinboard_user:
+pinboard_user: potato
 pinboard_count: 3
 
 # Delicious
@@ -90,7 +90,7 @@ delicious_user:
 delicious_count: 3
 
 # Disqus Comments
-disqus_short_name:
+disqus_short_name: aaronmiler
 disqus_show_comment_count: false
 
 # Google Analytics
@@ -98,3 +98,10 @@ google_analytics_tracking_id:
 
 # Facebook Like
 facebook_like: false
+
+# Navigation
+navigation:
+- text: Home
+  url: /
+- text: Blog
+  url: /blog

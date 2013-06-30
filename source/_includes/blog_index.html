@@ -1,0 +1,18 @@
+  {% for post in paginator.posts %}
+  {% assign content = post.content %}
+    <article class="span4">
+      {% include article.html %}
+    </article>
+    {% unless post == paginator.posts.last %}
+    {% endunless %}
+  {% endfor %}
+  <div class="pagination">
+    {% if paginator.next_page %}
+    <a class="prev" href="{{paginator.next_page}}">&larr; Older</a>
+    {% endif %}
+
+    {% if paginator.previous_page %}
+    <a class="next" href="{{paginator.previous_page}}">Newer &rarr;</a>
+    {% endif %}
+  </div>
+</div>
