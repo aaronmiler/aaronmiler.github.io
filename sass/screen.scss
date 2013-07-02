@@ -1,5 +1,4 @@
 @import "compass";
-
 @import "colors";
 @import "custom/colors";
 @import "bootstrap";
@@ -11,3 +10,73 @@
 @import "syntax";
 @import "quotes";
 
+.container {
+  max-width:960px !important;
+}
+
+.blog-index {
+  .span4 {
+    &:nth-child(3n+1){
+      margin-left:0px !important;
+    }
+  }
+  article {
+    padding:10px 15px;
+    margin:10px 1.25% !important;
+    background-color:#EFE8D5;
+    color:$text-color;
+    &:first-child {
+      margin-left:0px !important;
+    }
+    &:nth-child(3n){
+      margin-right:0px !important;
+    }
+    &:nth-child(3n+1){
+      margin-left:0px !important;
+    }
+  }
+  .date-time {
+    height:40px;
+  }
+  .jumbotron {
+    padding-bottom:10px;
+  }
+}
+#home .row-fluid {
+  margin:10px 0px;
+}
+.row-fluid div {
+  margin:10px 0px;
+}
+.navbar.btn-navbar {
+  background-color:transparent !important;
+}
+h2 {
+  color:#DC322F;
+}
+#latest-post h3 a {
+  font-size:25px;
+}
+h1 {
+  color:#268BD2;
+   span {
+    font-size:20px;
+    color:#DC322F !important;
+    margin:0;
+    padding:0;
+  }
+}
+.footer.customisable-border {
+  display:none !important;
+}
+#contact ul {
+  margin-left:0px;
+  font-size:16px;
+  li {
+    list-style:none;
+      span {
+        text-align:right;
+        float:right;
+      }
+  }
+}

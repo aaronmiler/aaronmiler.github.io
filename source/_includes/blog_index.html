@@ -1,8 +1,10 @@
   {% for post in paginator.posts %}
   {% assign content = post.content %}
-    <article class="span4">
+  <div class="span4"></div>
+    <article>
       {% include article.html %}
     </article>
+  </div>
     {% unless post == paginator.posts.last %}
     {% endunless %}
   {% endfor %}

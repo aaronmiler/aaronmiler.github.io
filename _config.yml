@@ -89,6 +89,8 @@ pinboard_count: 3
 delicious_user:
 delicious_count: 3
 
+linkedin_user: aaronmiler
+
 # Disqus Comments
 disqus_short_name: aaronmiler
 disqus_show_comment_count: false

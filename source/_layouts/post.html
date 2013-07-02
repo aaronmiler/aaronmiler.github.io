@@ -5,6 +5,7 @@ single: true
 
 <div>
 <article class="hentry" role="article">
+  {% assign excerpt = false %}
   {% include article.html %}
   <footer>
     <hr>
@@ -19,15 +20,10 @@ single: true
       </div>
       {% unless page.sharing == false %}
       <div class="span6 social-sharing">
-        {% include post/sharing.html %}
+        
       </div>
       {% endunless %}
       {% else %}
-      {% unless page.sharing == false %}
-      <div class="span12">
-        {% include post/sharing.html %}
-      </div>
-      {% endunless %}
       {% endif %}
     </div>
     {% endif %}

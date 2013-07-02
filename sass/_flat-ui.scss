@@ -224,7 +224,11 @@ h3 {
   font-weight: 500;
   font-family: "Quicksand";
   margin-bottom: 4px;
-  margin-top: 2px; }
+  margin-top: 2px; 
+  .link {
+    font-size: 30px !important;
+  }
+}
   .tagline
   {
     font-weight: 400;
@@ -622,7 +626,7 @@ h6 {
       .navbar .nav ul li:last-child {
         border-radius: 0 0 4px 4px; }
       .navbar .nav ul li.active > a, .navbar .nav ul li.active > a:hover {
-        background-color: $tertiary-color;
+        background-color: transparent;
         color: white; }
     .navbar .nav ul a {
       border-radius: 2px;
@@ -632,7 +636,7 @@ h6 {
       padding: 6px 9px;
       text-decoration: none; }
       .navbar .nav ul a:hover {
-        background-color: $tertiary-color; }
+        background-color: transparent; }
 
 .navbar-inner {
   border: none;
@@ -647,7 +651,7 @@ h6 {
   background: $navbar-color;
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false); }
 .navbar-inverse .nav > li > a {
-  color: $accent-color3; 
+  color: #FFF; 
   font-weight: 300; }
 .navbar-inverse .nav .active > a, .navbar-inverse .nav .active > a:hover, .navbar-inverse .nav .active > a:focus {
   background-color: transparent;
@@ -2603,7 +2607,7 @@ body.vjs-full-window {
   color: $accent-color3;
   white-space: nowrap;
   vertical-align: center;
-  background-color: $secondary-color;
+  background-color: transparent;
 }
 
 li {
@@ -2625,7 +2629,8 @@ hr { display: block; height: 1px;
 .navbar-inverse .nav > li > a:focus,
 .navbar-inverse .dropdown-menu a:hover,
 .navbar-inverse .dropdown-menu a:focus {
-  background-color: $accent-color1;
+  background-color: transparent;
+  color:#333;
 }
 
 a > .badge {
@@ -2637,7 +2642,6 @@ a > .badge {
 }
 a:hover > .badge {
   color: $tertiary-color;
-  background-color: $accent-color1;
 }
 
 .social-sharing {
@@ -2653,7 +2657,7 @@ a:hover > .badge {
 
   /* Safari and Chrome CSS here */
   .navbar-inverse .nav > li > a {
-  color: $accent-color3;
+  color: #FFF;
   font-weight: 400;
 }
 
