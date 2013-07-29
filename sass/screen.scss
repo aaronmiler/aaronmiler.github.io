@@ -13,10 +13,12 @@
 .container {
   max-width:960px !important;
 }
-
+.jumbotron {
+  padding:30px 0px !important;
+}
 .blog-index {
-  .span4 {
-    &:nth-child(3n+1){
+  .span6 {
+    &:nth-child(2n+1){
       margin-left:0px !important;
     }
   }
@@ -28,10 +30,10 @@
     &:first-child {
       margin-left:0px !important;
     }
-    &:nth-child(3n){
+    &:nth-child(2n){
       margin-right:0px !important;
     }
-    &:nth-child(3n+1){
+    &:nth-child(2n+1){
       margin-left:0px !important;
     }
   }

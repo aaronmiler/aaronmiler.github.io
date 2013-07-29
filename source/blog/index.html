@@ -3,19 +3,17 @@ layout: default
 title: Blog
 footer: false
 ---
-
-<div class="row-fluid">
-    <div class="span12">
-      <h1>Hello There, I'm Aaron Miler <span class="small">Here are some of my ramblings</span></h1>
-    </div>
+<div class="jumbotron">
+  <div class="container">
+    <h1>Hello There, I'm Aaron Miler <span class="small">Here are some of my ramblings</span></h1>
   </div>
-
+</div>
 
 {% assign index = true %}
 <div class="blog-index">
   {% for post in paginator.posts %}
   {% assign content = post.content %}
-  <div class="span4">
+  <div class="span6">
     <article>
       {% include article.html %}
     </article>
