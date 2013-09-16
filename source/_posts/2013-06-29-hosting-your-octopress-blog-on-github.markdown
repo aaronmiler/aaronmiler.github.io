@@ -6,7 +6,9 @@ comments: true
 categories: blogging github octopress hosting
 ---
 
-Last week I started building my site on Octopress. Coming from Jekyll everything was rather familiar. While developing my site, I listened to a great podcast, called "Jekyll and CMS-less websites with Young Hahn and Dave Cole" on The Web Ahead. I won't attempt to summarize it as there is so much covered, and it really got me excited about using Jekyll. If you haven't listened to it, you can listen to it [here](http://5by5.tv/webahead/54). <!-- more --> As I got closer to finishing my site, I started to wonder about how I was going to host it. With my initial Jekyll set up I had just uploaded the static files to a Digital Ocean VPS and called it a day. But the Jekyll podcast got me thinking about hosting my site on GitHub pages for free, so I gave it a shot. 
+Last week I started building my site on Octopress. Coming from Jekyll everything was rather familiar. While developing my site, I listened to a great podcast, called "Jekyll and CMS-less websites with Young Hahn and Dave Cole" on The Web Ahead. I won't attempt to summarize it as there is so much covered, and it really got me excited about using Jekyll. If you haven't listened to it, you can listen to it [here](http://5by5.tv/webahead/54). 
+
+<!-- more --> As I got closer to finishing my site, I started to wonder about how I was going to host it. With my initial Jekyll set up I had just uploaded the static files to a Digital Ocean VPS and called it a day. But the Jekyll podcast got me thinking about hosting my site on GitHub pages for free, so I gave it a shot. 
 
 Very quickly I realized how easy it was to throw my site up on github pages. The directions for all of the pieces are a little scattered, so I figured I'd put them all here for other Internet goers to enjoy.
 
