@@ -43,6 +43,6 @@ _sublime_darwin_paths=(
 )
 ```
 
-The only small change I had to make was line 4, and 6, and just like that, one of my favorite ZSH shortcuts is fixed!
+The only small change I had to make was line 4, and 6, and just like that, one of my favorite ZSH shortcuts is fixed! If your Sublime Text 3 application is named `Sublime Text 3.app` I would assume that you'd just have to change the 2, to a 3, and that would fix the problem just as easily.
 
 Hooray!
