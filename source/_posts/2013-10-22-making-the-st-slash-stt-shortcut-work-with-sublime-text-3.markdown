@@ -8,8 +8,13 @@ categories: ZSH, Z-shell, Sublime Text 3
 
 I recently made the switch to Sublime Text 3. When I did this I finally removed the Sublime Text 2 application from my computer so I would quit having two instances of Sublime Text open at the same time. 
 
-When I did this, I broke one of my favorite short cuts. Oh-My-ZSH has a shortcut to open a file/directory in Sublime Text.
 <!-- more -->
+
+When I did this, this happened.
+![Broken Command](/images/broken-zsh.png)
+
+Whoops, I broke one of my favorite short cuts. Oh-My-ZSH has a shortcut to open a file/directory in Sublime Text.
+
 You can run `st` to open a file, or `stt` to open the current directory in Sublime Text.
 
 After the upgrade I broke that shortcut. The Sublime Text 3 application file name is just `Sublime Text.app` instead of Sublime Text 2 shortcut of `Sublime Text 2.app`. 
