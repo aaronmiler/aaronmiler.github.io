@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Aaron Miler  | Blog</title>
+  <link rel="author" href="https://plus.google.com/106372082297835304384"/>
+
+
+  
+  <meta name="description" content="Hello There, I&#8217;m Aaron Miler Here are some of my ramblings Manipulating Files with the GitHub API Gem Oct 6th, 2013 I&rsquo;ve been building &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://aaronmiler.com/blog">
+  <link href="/favicon.png" rel="icon">
+  <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Aaron Miler" type="application/atom+xml">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap-collapse.js"></script>
+  <script src="/js/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/js/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-42889851-1', 'aaronmiler.com');
+  ga('send', 'pageview');
+
+</script>
+  <script type="text/javascript">
+  var _gauges = _gauges || [];
+  (function() {
+    var t   = document.createElement('script');
+    t.type  = 'text/javascript';
+    t.async = true;
+    t.id    = 'gauges-tracker';
+    t.setAttribute('data-site-id', '51b7320bf5a1f559a100002a');
+    t.src = '//secure.gaug.es/track.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(t, s);
+  })();
+</script>
+</head>
+
+<body   >
+  <div class="navbar navbar-inverse navbar-static-top">
+  	<div class="navbar-inner">
+  	  <div class="container">
+        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+          <span class="fui-menu-24"></span>
+        </a>
+  	  	<div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
+  	      <ul class="nav">
+    
+        <li ><a href="/">Home</a></li>
+    
+        <li ><a href="/blog">Blog</a></li>
+    
+</ul>
+
+<ul class="nav pull-right">
+    
+    <li><a href="http://github.com/aaronmiler" title="Github Profile"><i class="icon-github-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://linkedin.com/in/aaronmiler" title="Linkedin Profile"><i class="icon-linkedin-sign social-navbar"></i></a></li>
+    
+    
+    <li><a href="http://twitter.com/aaronmiler" title="Twitter Profile"><i class="icon-twitter-sign social-navbar"></i></a></li>
+    
+    
+    
+</ul>
+
+  	    </div>
+  	  </div>
+  	</div>
+  </div>
+  <div class="container" id="main">
+      <div class="row-fluid">
+        <div id="content">
+          <div class="jumbotron">
+  <div class="container">
+    <h1>Hello There, I&#8217;m Aaron Miler <span class="small">Here are some of my ramblings</span></h1>
+  </div>
+</div>
+
+
+<div class="blog-index">
+  
+  
+  <div class="span6">
+    <article>
+      
+  <h3 style="font-weight:bold"><a href="/blog/manipulating-files-with-github-api-gem/">Manipulating Files with the GitHub API Gem</a></h3>      
+  <h5 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> Oct 6<span>th</span>, 2013</h5>
+  <p>I&rsquo;ve been building an application, that is for creating, managing and organizing all those little bits of code you have floating around in your brain. Every piece of knowledge you save within the application gets saved to GitHub in your own personal repository.</p>
+
+
+  
+   <a href="/blog/manipulating-files-with-github-api-gem/">Read on &rarr;</a> 
+
+
+    </article>
+    
+  </div>
+    
+    
+  
+  
+  <div class="span6">
+    <article>
+      
+  <h3 style="font-weight:bold"><a href="/blog/my-first-rubymotion-application/">My First Rubymotion Application</a></h3>      
+  <h5 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> Sep 15<span>th</span>, 2013</h5>
+  <p>After struggling to figure out Rubymotion for a while. I found a <a href="http://rubymotion-tutorial.com/">great set of tutorials</a> by Clay Allsopp.</p>
+
+<p>With these examples, and the rest of the internet to help me. I was able to frakenstien enough things together to create an application.</p>
+
+
+  
+   <a href="/blog/my-first-rubymotion-application/">Read on &rarr;</a> 
+
+
+    </article>
+    
+  </div>
+    
+    
+  
+  
+  <div class="span6">
+    <article>
+      
+  <h3 style="font-weight:bold"><a href="/blog/using-devise-invitable/">Using Devise Invitable</a></h3>      
+  <h5 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> Aug 28<span>th</span>, 2013</h5>
+  <p>I love using Devise for application authentication. When I was creating the <a href="https://github.com/quangoinc/realtime_qa">Realtime QA Tool</a> I needed to make sure that the sign up form wasn&rsquo;t publicly accessible. So I started doing a little bit of searching I found <a href="https://github.com/scambra/devise_invitable">Devise Invitable</a>. Devise invitable allows you to invite users via e-mail to your application.</p>
+
+
+  
+   <a href="/blog/using-devise-invitable/">Read on &rarr;</a> 
+
+
+    </article>
+    
+  </div>
+    
+    
+  
+  
+  <div class="span6">
+    <article>
+      
+  <h3 style="font-weight:bold"><a href="/blog/purchased-ruby-motion/">Purchased Ruby Motion</a></h3>      
+  <h5 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> Aug 12<span>th</span>, 2013</h5>
+  <p>A couple of months ago I sarcastically said I was going to make an app for my girlfriend. Much to my surprise shortly after, she asked me if I could make that app for her, for her birthday. So I agreed to it. I&rsquo;ve been wanting to get into the iOS space for a while, and this gave me some good motivation.</p>
+
+
+  
+   <a href="/blog/purchased-ruby-motion/">Read on &rarr;</a> 
+
+
+    </article>
+    
+  </div>
+    
+    
+  
+  
+  <div class="span6">
+    <article>
+      
+  <h3 style="font-weight:bold"><a href="/blog/google-maps-v3-custom-html-map-marker/">Google Maps v3 Custom HTML Map Marker</a></h3>      
+  <h5 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> Jul 29<span>th</span>, 2013</h5>
+  <p>I&rsquo;m currently building a small rails app that will display where all of the breweries located in Portland Oregon are. So far the most complicated thing about it is interfacing with the Google Maps v3 API. Many of the problems I face, Google has examples for in their documentation. However, some examples seem to be buried deep down in the recesses of the documentation and are a little bit harder to come by.</p>
+
+
+  
+   <a href="/blog/google-maps-v3-custom-html-map-marker/">Read on &rarr;</a> 
+
+
+    </article>
+    
+  </div>
+    
+    
+  
+  
+  <div class="span6">
+    <article>
+      
+  <h3 style="font-weight:bold"><a href="/blog/hosting-your-octopress-blog-on-github/">Using Octopress and Github to Host My Website</a></h3>      
+  <h5 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> Jun 29<span>th</span>, 2013</h5>
+  <p>Last week I started building my site on Octopress. Coming from Jekyll everything was rather familiar. While developing my site, I listened to a great podcast, called &ldquo;Jekyll and CMS-less websites with Young Hahn and Dave Cole&rdquo; on The Web Ahead. I won&rsquo;t attempt to summarize it as there is so much covered, and it really got me excited about using Jekyll. If you haven&rsquo;t listened to it, you can listen to it <a href="http://5by5.tv/webahead/54">here</a>.</p>
+
+
+  
+   <a href="/blog/hosting-your-octopress-blog-on-github/">Read on &rarr;</a> 
+
+
+    </article>
+    
+  </div>
+    
+    
+  
+  
+  <div class="span6">
+    <article>
+      
+  <h3 style="font-weight:bold"><a href="/blog/now-built-with-octopress/">Now Built with Octopress</a></h3>      
+  <h5 class="date-time">
+
+
+
+
+
+
+
+
+  
+
+
+<i class="icon-calendar-empty"></i> Jun 25<span>th</span>, 2013</h5>
+  <p>I&rsquo;ve deployed my new blog using Otopress. I had been using Jekyll for the past couple of weeks, but I found very quickly that making changes, then rebuildling/testing was very time consuming, and rather annoying. One nice thing about Octopress is that I can simply run the server like I would a rails application and it will pay attention to changes and rebuild the site as needed.</p>
+
+
+  
+   <a href="/blog/now-built-with-octopress/">Read on &rarr;</a> 
+
+
+    </article>
+    
+  </div>
+    
+  
+  <div class="pagination">
+    
+
+    
+  </div>
+</div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <footer class="footer-page" role="contentinfo">
+          <p>
+  Copyright &copy; 2013 - Aaron Miler -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+
+        </footer>
+      </div>
+  </div>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'aaronmiler';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

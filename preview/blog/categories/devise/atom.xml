@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: devise | Aaron Miler]]></title>
+  <link href="http://aaronmiler.com/blog/categories/devise/atom.xml" rel="self"/>
+  <link href="http://aaronmiler.com/"/>
+  <updated>2013-10-16T10:05:48-07:00</updated>
+  <id>http://aaronmiler.com/</id>
+  <author>
+    <name><![CDATA[Aaron Miler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Using Devise Invitable]]></title>
+    <link href="http://aaronmiler.com/blog/using-devise-invitable/"/>
+    <updated>2013-08-28T10:16:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/using-devise-invitable</id>
+    <content type="html"><![CDATA[<p>I love using Devise for application authentication. When I was creating the <a href="https://github.com/quangoinc/realtime_qa">Realtime QA Tool</a> I needed to make sure that the sign up form wasn&rsquo;t publicly accessible. So I started doing a little bit of searching I found <a href="https://github.com/scambra/devise_invitable">Devise Invitable</a>. Devise invitable allows you to invite users via e-mail to your application.</p>
+
+<!-- more -->
+
+
+<p>Without this gem the only way I could think of to invite users was to create their login myself, with a temporary password. Having done that with some services in the past. I felt like that was a very primative solution, so I set out to find a better solution.</p>
+
+<p>That is when I found Devise Invitable. The documentation for Devise invitable is great, so getting up and running.</p>
+
+<p>Start out with two simple commands</p>
+
+<p><code>
+rails generate devise_invitable:install
+rails generate devise_invitable MODEL
+</code></p>
+
+<p>Update your devise model
+<code>ruby
+class User &lt; ActiveRecord::Base
+  devise :database_authenticatable, :confirmable, :invitable
+end
+</code></p>
+
+<p>and you&rsquo;re good to go.</p>
+
+<p>After Devise Invitable is installed and ready to go, I usually end up making an invitation action in one of my controllers. Devise Invitable does allow you to make a dedicated controller for it. But I find I can usually accomplish everything with a simple action that looks something like that</p>
+
+<p><code>ruby
+def invite_user
+  @user = User.invite!(:email =&gt; params[:user][:email], :name =&gt; params[:user][:name])
+  render :json =&gt; @user
+end
+</code>
+Just like that, you can now invite users to your application.</p>
+]]></content>
+  </entry>
+  
+</feed>

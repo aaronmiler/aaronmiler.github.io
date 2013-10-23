@@ -2,12 +2,12 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://aaronmiler.github.io
+url: http://aaronmiler.com
 title: Aaron Miler
 subtitle:
 author: Aaron Miler
 simple_search: http://google.com/search
-description:
+description: "The personal site and blog of Aaron Miler, a Portland Oregon based web developer, who is currently enamoured with Ruby, Rails, and learning new technologies."
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -16,7 +16,7 @@ description:
 date_format: "ordinal"
 
 # RSS / Email (optional) subscription links (change if using something like Feedburner)
-subscribe_rss: /atom.xml
+subscribe_rss: http://feeds.feedburner.com/aaronmiler
 subscribe_email:
 # RSS feeds can list your email address if you like
 email:

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ios | Aaron Miler]]></title>
+  <link href="http://aaronmiler.com/blog/categories/ios/atom.xml" rel="self"/>
+  <link href="http://aaronmiler.com/"/>
+  <updated>2013-10-16T10:05:48-07:00</updated>
+  <id>http://aaronmiler.com/</id>
+  <author>
+    <name><![CDATA[Aaron Miler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[My First Rubymotion Application]]></title>
+    <link href="http://aaronmiler.com/blog/my-first-rubymotion-application/"/>
+    <updated>2013-09-15T16:22:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/my-first-rubymotion-application</id>
+    <content type="html"><![CDATA[<p>After struggling to figure out Rubymotion for a while. I found a <a href="http://rubymotion-tutorial.com/">great set of tutorials</a> by Clay Allsopp.</p>
+
+<p>With these examples, and the rest of the internet to help me. I was able to frakenstien enough things together to create an application.</p>
+
+<!-- more -->
+
+
+<p>Meet Parquare</p>
+
+<p><img src="/images/parquare.png" alt="Parquare" /></p>
+
+<p>Parquare is an application that you can use for remembering where you parked your car. With a <a href="https://github.com/aaronmiler/car_app_api">supporting API</a> the thing that makes this iPhone app stand out is the ability to share your car code with another person.</p>
+
+<p>Now hopefully you don&rsquo;t park your car on a highway. But if you do, Parquare will remember where you parked it.</p>
+
+<p>While the application works. I&rsquo;m pretty sure that my code is a mess. Regardless, there are a couple of things I figured out and found helpful. Here are a couple of snippets</p>
+
+<p>Button with an Image Background
+<code>ruby
+@back_btn = UIButton.buttonWithType UIButtonTypeCustom
+@back_btn.frame = [[0,0], [122, 40]]
+@back_btn.setBackgroundImage(UIImage.imageNamed("btn_home_locate"), forState: UIControlStateNormal)
+</code></p>
+
+<p>I often used this for centering objects within my view window
+<code>ruby
+@THING.center = CGPointMake(self.view.frame.size.width / 2, Y)
+</code>
+Making a label wrap was tricky. But this seemed to do the trick.
+<code>ruby
+@update = UILabel.alloc.init
+@update.lineBreakMode = UILineBreakModeWordWrap
+@update.numberOfLines = 2 # Or if set to 0, allows for any number of lines
+@update.frame = [[20,165],[300,100]]
+</code></p>
+
+<p>Adding an image to the view
+<code>ruby
+@image = UIImageView.alloc.initWithFrame([[100, 150],[258, 57]])
+@image.image = UIImage.imageNamed("image")
+</code></p>
+
+<p>Another thing that made a lot more sense after I looked it up was Frames. When first playing with the numbers I thought they were (X1,Y1),(X2,Y2). When it turns out that a fame is actually [[Xpos,Ypos],[Width,Height]].</p>
+
+<p>Every time I do something in Rubymotion I feel like I&rsquo;m learning more. As time goes I hope to make more applications and make a better use of this excellent tool.</p>
+
+<p>I haven&rsquo;t released the application to the App Store yet, I still think I have some design changes to make. But as soon as I do it will be interesting to see if any bug reports come in. I am also going to start refactoring my code shortly after I release it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Purchased Ruby Motion]]></title>
+    <link href="http://aaronmiler.com/blog/purchased-ruby-motion/"/>
+    <updated>2013-08-12T22:11:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/purchased-ruby-motion</id>
+    <content type="html"><![CDATA[<p>A couple of months ago I sarcastically said I was going to make an app for my girlfriend. Much to my surprise shortly after, she asked me if I could make that app for her, for her birthday. So I agreed to it. I&rsquo;ve been wanting to get into the iOS space for a while, and this gave me some good motivation.</p>
+
+<!-- more -->
+
+
+<p>In the past I&rsquo;ve tried to get into the mobile app space. I&rsquo;ve tried Appcelerator, Phonegap, and Cordova. None of which were really quite what I was looking for, and because each of the tools aimed for cross platform abilities. You lost some of the device features. Now while it&rsquo;s possible that these tools have evolved, I really wasn&rsquo;t a big fan of how they worked.</p>
+
+<p>While at Railsconf I attended <a href="http://www.youtube.com/watch?v=7v3_t5SK8DM">a talk</a> about something called <a href="http://www.rubymotion.com">RubyMotion</a>. RubyMotion lets you right iOS apps in Ruby. The biggest appeal to me is that Rubymotion doesn&rsquo;t actually run the application in Ruby. It compiles to executable code that interacts with the iOS device. Meaning there are no features lost when using Rubymotion.</p>
+
+<p>After completing the Rails powered API for the iPhone application I intend to make. I quickly purchased a Rubymotion license key, and realized I have no idea what I&rsquo;m doing. Luckly I was able to find <a href="http://pragprog.com/book/carubym/rubymotion">a nice book about Rubymotion</a> from the pragmatic press. Hopefully this will get me up and running with Rubymotion.</p>
+
+<p>I almost forgot to mention my favorite feature of Rubymotion. When you fire up your application to debug on your phone or a virtual device. You also get the Rubymotion REPL. Which is just like running IRB on a Rails application. This allows you to update your app and see the changes real time in your terminal. It&rsquo;s pretty awesome firing up a completely blank application, and telling it to display an alert message from the terminal.</p>
+
+<p>TL;DR Take a good look at Rubymotion. It&rsquo;s cool</p>
+]]></content>
+  </entry>
+  
+</feed>

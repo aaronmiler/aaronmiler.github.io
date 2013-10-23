@@ -15,4 +15,7 @@
     {% if site.facebook_user %}
     <li><a href="http://facebook.com/{{ site.facebook_user }}" title="Facebook Profile"><i class="icon-facebook-sign social-navbar"></i></a></li>
     {% endif %}
+    {% if site.subscribe_rss %}
+    <li><a href="{{ site.subscribe_rss }}" target="_blank" title="Atom Feed"><i class="icon-rss-sign social-navbar"></i></a></li>
+    {% endif %}
 </ul>

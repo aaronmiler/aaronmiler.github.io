@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Aaron Miler]]></title>
+  <link href="http://aaronmiler.com/atom.xml" rel="self"/>
+  <link href="http://aaronmiler.com/"/>
+  <updated>2013-10-16T10:05:48-07:00</updated>
+  <id>http://aaronmiler.com/</id>
+  <author>
+    <name><![CDATA[Aaron Miler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Manipulating Files with the GitHub API Gem]]></title>
+    <link href="http://aaronmiler.com/blog/manipulating-files-with-github-api-gem/"/>
+    <updated>2013-10-06T15:27:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/manipulating-files-with-github-api-gem</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been building an application, that is for creating, managing and organizing all those little bits of code you have floating around in your brain. Every piece of knowledge you save within the application gets saved to GitHub in your own personal repository.</p>
+
+<!-- more -->
+
+
+<p>I&rsquo;m using two different Gems to interact with the GitHub API. I&rsquo;m using the <a href="https://github.com/peter-murach/github">GitHub API Gem</a> by Piotr Murach, as well as the <a href="https://github.com/octokit/octokit.rb">Octokit</a> gem which is maintained by GitHub. Most of the interaction I&rsquo;m doing with the GitHub API is with Piotr&rsquo;s gem, however the Octokit gem has new features implemented faster.</p>
+
+<p>A pivotal piece of this application, is the ability to create, remove, and update files. So being more comfortable with Pitor&rsquo;s gem, I decided to use it for the file manipulation.</p>
+
+<p>I was able to find some <a href="https://github.com/peter-murach/github/wiki#githubapi-committing-file">documentation in the Github</a> repo outlining how to create a file. However, as it turns out, the documentation is very dated.</p>
+
+<p>So I took matters into my own hands and looked at the source code to figure out what&rsquo;s going on. Finally after hours of banging my head against the wall, I found the solution I was looking for.</p>
+
+<p>My gift to you, is what you need to create/update/remove a file using Pitor Murach&rsquo;s Github_API Gem.</p>
+
+<p>All Methods use the Github Repo Contents method to interact with the Repo Contents API</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">github</span> <span class="o">=</span> <span class="ss">Github</span><span class="p">:</span><span class="ss">:Repos</span><span class="o">::</span><span class="no">Contents</span><span class="o">.</span><span class="n">new</span>  <span class="ss">:user</span> <span class="o">=&gt;</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:oauth_token</span> <span class="o">=&gt;</span> <span class="s1">&#39;oauth_token&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:repo</span> <span class="o">=&gt;</span> <span class="s1">&#39;repo_name&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Creating a File</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">github</span><span class="o">.</span><span class="n">create</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;repo_name&#39;</span><span class="p">,</span> <span class="s1">&#39;full_path_to/file.ext&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:path</span> <span class="o">=&gt;</span> <span class="s1">&#39;full_path_to/file.ext&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:message</span> <span class="o">=&gt;</span> <span class="s1">&#39;Your commit message&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:content</span> <span class="o">=&gt;</span> <span class="s1">&#39;The contents of your file&#39;</span>
+</span><span class='line'><span class="c1"># Content is all Base64 encoded to/from the API, and when you create a file it encodes it automatically for you</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Update a File</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># First you need to find the file so you can get the SHA you&#39;re updating off of</span>
+</span><span class='line'><span class="n">file</span> <span class="o">=</span> <span class="n">github</span><span class="o">.</span><span class="n">find</span> <span class="ss">:path</span> <span class="o">=&gt;</span> <span class="s1">&#39;full_path_to/file.ext&#39;</span>
+</span><span class='line'><span class="c1"># Then update the file just like you do with creating</span>
+</span><span class='line'><span class="n">github</span><span class="o">.</span><span class="n">update</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;repo_name&#39;</span><span class="p">,</span> <span class="s1">&#39;full_path_to/file.ext&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:path</span> <span class="o">=&gt;</span> <span class="s1">&#39;full_path_to/file.ext&#39;</span>
+</span><span class='line'>  <span class="ss">:message</span> <span class="o">=&gt;</span> <span class="s1">&#39;Your commit message&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:content</span> <span class="o">=&gt;</span> <span class="nb">self</span><span class="o">.</span><span class="n">markdown</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:sha</span> <span class="o">=&gt;</span> <span class="n">file</span><span class="o">.</span><span class="n">sha</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Removing a File</h3>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1"># First you need to find the file so you can get the SHA you&#39;re removing</span>
+</span><span class='line'><span class="n">file</span> <span class="o">=</span> <span class="n">github</span><span class="o">.</span><span class="n">find</span> <span class="ss">:path</span> <span class="o">=&gt;</span> <span class="s1">&#39;full_path_to/file.ext&#39;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">github</span><span class="o">.</span><span class="n">delete</span> <span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="s1">&#39;tome-of-knowledge&#39;</span><span class="p">,</span> <span class="s1">&#39;full_path_to/file.ext&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:path</span> <span class="o">=&gt;</span> <span class="s1">&#39;full_path_to/file.ext&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:message</span> <span class="o">=&gt;</span> <span class="s1">&#39;Your Commit Message&#39;</span><span class="p">,</span>
+</span><span class='line'>  <span class="ss">:sha</span> <span class="o">=&gt;</span> <span class="n">file</span><span class="o">.</span><span class="n">sha</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There you have it. I plan to send in a pull-request to update the documentation. Hope this saves someone some time.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My First Rubymotion Application]]></title>
+    <link href="http://aaronmiler.com/blog/my-first-rubymotion-application/"/>
+    <updated>2013-09-15T16:22:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/my-first-rubymotion-application</id>
+    <content type="html"><![CDATA[<p>After struggling to figure out Rubymotion for a while. I found a <a href="http://rubymotion-tutorial.com/">great set of tutorials</a> by Clay Allsopp.</p>
+
+<p>With these examples, and the rest of the internet to help me. I was able to frakenstien enough things together to create an application.</p>
+
+<!-- more -->
+
+
+<p>Meet Parquare</p>
+
+<p><img src="http://aaronmiler.com/images/parquare.png" alt="Parquare" /></p>
+
+<p>Parquare is an application that you can use for remembering where you parked your car. With a <a href="https://github.com/aaronmiler/car_app_api">supporting API</a> the thing that makes this iPhone app stand out is the ability to share your car code with another person.</p>
+
+<p>Now hopefully you don&rsquo;t park your car on a highway. But if you do, Parquare will remember where you parked it.</p>
+
+<p>While the application works. I&rsquo;m pretty sure that my code is a mess. Regardless, there are a couple of things I figured out and found helpful. Here are a couple of snippets</p>
+
+<p>Button with an Image Background</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="vi">@back_btn</span> <span class="o">=</span> <span class="no">UIButton</span><span class="o">.</span><span class="n">buttonWithType</span> <span class="no">UIButtonTypeCustom</span>
+</span><span class='line'><span class="vi">@back_btn</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="o">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="o">]</span><span class="p">,</span> <span class="o">[</span><span class="mi">122</span><span class="p">,</span> <span class="mi">40</span><span class="o">]]</span>
+</span><span class='line'><span class="vi">@back_btn</span><span class="o">.</span><span class="n">setBackgroundImage</span><span class="p">(</span><span class="no">UIImage</span><span class="o">.</span><span class="n">imageNamed</span><span class="p">(</span><span class="s2">&quot;btn_home_locate&quot;</span><span class="p">),</span> <span class="ss">forState</span><span class="p">:</span> <span class="no">UIControlStateNormal</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I often used this for centering objects within my view window</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="vi">@THING</span><span class="o">.</span><span class="n">center</span> <span class="o">=</span> <span class="no">CGPointMake</span><span class="p">(</span><span class="nb">self</span><span class="o">.</span><span class="n">view</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">size</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Making a label wrap was tricky. But this seemed to do the trick.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="vi">@update</span> <span class="o">=</span> <span class="no">UILabel</span><span class="o">.</span><span class="n">alloc</span><span class="o">.</span><span class="n">init</span>
+</span><span class='line'><span class="vi">@update</span><span class="o">.</span><span class="n">lineBreakMode</span> <span class="o">=</span> <span class="no">UILineBreakModeWordWrap</span>
+</span><span class='line'><span class="vi">@update</span><span class="o">.</span><span class="n">numberOfLines</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># Or if set to 0, allows for any number of lines</span>
+</span><span class='line'><span class="vi">@update</span><span class="o">.</span><span class="n">frame</span> <span class="o">=</span> <span class="o">[[</span><span class="mi">20</span><span class="p">,</span><span class="mi">165</span><span class="o">]</span><span class="p">,</span><span class="o">[</span><span class="mi">300</span><span class="p">,</span><span class="mi">100</span><span class="o">]]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Adding an image to the view</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="vi">@image</span> <span class="o">=</span> <span class="no">UIImageView</span><span class="o">.</span><span class="n">alloc</span><span class="o">.</span><span class="n">initWithFrame</span><span class="p">(</span><span class="o">[[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="o">]</span><span class="p">,</span><span class="o">[</span><span class="mi">258</span><span class="p">,</span> <span class="mi">57</span><span class="o">]]</span><span class="p">)</span>
+</span><span class='line'><span class="vi">@image</span><span class="o">.</span><span class="n">image</span> <span class="o">=</span> <span class="no">UIImage</span><span class="o">.</span><span class="n">imageNamed</span><span class="p">(</span><span class="s2">&quot;image&quot;</span><span class="p">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Another thing that made a lot more sense after I looked it up was Frames. When first playing with the numbers I thought they were (X1,Y1),(X2,Y2). When it turns out that a fame is actually [[Xpos,Ypos],[Width,Height]].</p>
+
+<p>Every time I do something in Rubymotion I feel like I&rsquo;m learning more. As time goes I hope to make more applications and make a better use of this excellent tool.</p>
+
+<p>I haven&rsquo;t released the application to the App Store yet, I still think I have some design changes to make. But as soon as I do it will be interesting to see if any bug reports come in. I am also going to start refactoring my code shortly after I release it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using Devise Invitable]]></title>
+    <link href="http://aaronmiler.com/blog/using-devise-invitable/"/>
+    <updated>2013-08-28T10:16:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/using-devise-invitable</id>
+    <content type="html"><![CDATA[<p>I love using Devise for application authentication. When I was creating the <a href="https://github.com/quangoinc/realtime_qa">Realtime QA Tool</a> I needed to make sure that the sign up form wasn&rsquo;t publicly accessible. So I started doing a little bit of searching I found <a href="https://github.com/scambra/devise_invitable">Devise Invitable</a>. Devise invitable allows you to invite users via e-mail to your application.</p>
+
+<!-- more -->
+
+
+<p>Without this gem the only way I could think of to invite users was to create their login myself, with a temporary password. Having done that with some services in the past. I felt like that was a very primative solution, so I set out to find a better solution.</p>
+
+<p>That is when I found Devise Invitable. The documentation for Devise invitable is great, so getting up and running.</p>
+
+<p>Start out with two simple commands</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rails generate devise_invitable:install
+</span><span class='line'>rails generate devise_invitable MODEL</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Update your devise model</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">User</span> <span class="o">&lt;</span> <span class="ss">ActiveRecord</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">devise</span> <span class="ss">:database_authenticatable</span><span class="p">,</span> <span class="ss">:confirmable</span><span class="p">,</span> <span class="ss">:invitable</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>and you&rsquo;re good to go.</p>
+
+<p>After Devise Invitable is installed and ready to go, I usually end up making an invitation action in one of my controllers. Devise Invitable does allow you to make a dedicated controller for it. But I find I can usually accomplish everything with a simple action that looks something like that</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">invite_user</span>
+</span><span class='line'>  <span class="vi">@user</span> <span class="o">=</span> <span class="no">User</span><span class="o">.</span><span class="n">invite!</span><span class="p">(</span><span class="ss">:email</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:user</span><span class="o">][</span><span class="ss">:email</span><span class="o">]</span><span class="p">,</span> <span class="ss">:name</span> <span class="o">=&gt;</span> <span class="n">params</span><span class="o">[</span><span class="ss">:user</span><span class="o">][</span><span class="ss">:name</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>  <span class="n">render</span> <span class="ss">:json</span> <span class="o">=&gt;</span> <span class="vi">@user</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Just like that, you can now invite users to your application.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Purchased Ruby Motion]]></title>
+    <link href="http://aaronmiler.com/blog/purchased-ruby-motion/"/>
+    <updated>2013-08-12T22:11:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/purchased-ruby-motion</id>
+    <content type="html"><![CDATA[<p>A couple of months ago I sarcastically said I was going to make an app for my girlfriend. Much to my surprise shortly after, she asked me if I could make that app for her, for her birthday. So I agreed to it. I&rsquo;ve been wanting to get into the iOS space for a while, and this gave me some good motivation.</p>
+
+<!-- more -->
+
+
+<p>In the past I&rsquo;ve tried to get into the mobile app space. I&rsquo;ve tried Appcelerator, Phonegap, and Cordova. None of which were really quite what I was looking for, and because each of the tools aimed for cross platform abilities. You lost some of the device features. Now while it&rsquo;s possible that these tools have evolved, I really wasn&rsquo;t a big fan of how they worked.</p>
+
+<p>While at Railsconf I attended <a href="http://www.youtube.com/watch?v=7v3_t5SK8DM">a talk</a> about something called <a href="http://www.rubymotion.com">RubyMotion</a>. RubyMotion lets you right iOS apps in Ruby. The biggest appeal to me is that Rubymotion doesn&rsquo;t actually run the application in Ruby. It compiles to executable code that interacts with the iOS device. Meaning there are no features lost when using Rubymotion.</p>
+
+<p>After completing the Rails powered API for the iPhone application I intend to make. I quickly purchased a Rubymotion license key, and realized I have no idea what I&rsquo;m doing. Luckly I was able to find <a href="http://pragprog.com/book/carubym/rubymotion">a nice book about Rubymotion</a> from the pragmatic press. Hopefully this will get me up and running with Rubymotion.</p>
+
+<p>I almost forgot to mention my favorite feature of Rubymotion. When you fire up your application to debug on your phone or a virtual device. You also get the Rubymotion REPL. Which is just like running IRB on a Rails application. This allows you to update your app and see the changes real time in your terminal. It&rsquo;s pretty awesome firing up a completely blank application, and telling it to display an alert message from the terminal.</p>
+
+<p>TL;DR Take a good look at Rubymotion. It&rsquo;s cool</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Google Maps v3 Custom HTML Map Marker]]></title>
+    <link href="http://aaronmiler.com/blog/google-maps-v3-custom-html-map-marker/"/>
+    <updated>2013-07-29T14:23:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/google-maps-v3-custom-html-map-marker</id>
+    <content type="html"><![CDATA[<p>I&rsquo;m currently building a small rails app that will display where all of the breweries located in Portland Oregon are. So far the most complicated thing about it is interfacing with the Google Maps v3 API. Many of the problems I face, Google has examples for in their documentation. However, some examples seem to be buried deep down in the recesses of the documentation and are a little bit harder to come by.</p>
+
+<!-- more -->
+
+
+<p> After two or so hours of searching for a way to make custom HTML map markers, I finally found an example in a forum.</p>
+
+<p> Here is the basic code I found for creating a custom HTML map marker.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>   <span class="kd">function</span> <span class="nx">CustomMarker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span>  <span class="nx">map</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>     <span class="k">this</span><span class="p">.</span><span class="nx">latlng_</span> <span class="o">=</span> <span class="nx">latlng</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>     <span class="c1">// Once the LatLng and text are set, add the overlay to the map.  This will</span>
+</span><span class='line'>     <span class="c1">// trigger a call to panes_changed which should in turn call draw.</span>
+</span><span class='line'>     <span class="k">this</span><span class="p">.</span><span class="nx">setMap</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</span><span class='line'>   <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>   <span class="nx">CustomMarker</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">google</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">OverlayView</span><span class="p">();</span>
+</span><span class='line'>
+</span><span class='line'>   <span class="nx">CustomMarker</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">draw</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>     <span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>     <span class="c1">// Check if the div has been created.</span>
+</span><span class='line'>     <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">div_</span><span class="p">;</span>
+</span><span class='line'>     <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">div</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>       <span class="c1">// Create a overlay text DIV</span>
+</span><span class='line'>       <span class="nx">div</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">div_</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;DIV&#39;</span><span class="p">);</span>
+</span><span class='line'>       <span class="c1">// Create the DIV representing our CustomMarker</span>
+</span><span class='line'>       <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">border</span> <span class="o">=</span> <span class="s1">&#39;2px solid blue&#39;</span><span class="p">;</span>
+</span><span class='line'>       <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="s1">&#39;absolute&#39;</span><span class="p">;</span>
+</span><span class='line'>       <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">paddingLeft</span> <span class="o">=</span> <span class="s1">&#39;0px&#39;</span><span class="p">;</span>
+</span><span class='line'>       <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cursor</span> <span class="o">=</span> <span class="s1">&#39;pointer&#39;</span><span class="p">;</span>
+</span><span class='line'>       <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="s1">&#39;10px&#39;</span><span class="p">;</span>
+</span><span class='line'>       <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s1">&#39;10px&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>       <span class="nx">google</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">event</span><span class="p">.</span><span class="nx">addDomListener</span><span class="p">(</span><span class="nx">div</span><span class="p">,</span> <span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>         <span class="nx">google</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">event</span><span class="p">.</span><span class="nx">trigger</span><span class="p">(</span><span class="nx">me</span><span class="p">,</span> <span class="s2">&quot;click&quot;</span><span class="p">);</span>
+</span><span class='line'>       <span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'>       <span class="c1">// Then add the overlay to the DOM</span>
+</span><span class='line'>       <span class="kd">var</span> <span class="nx">panes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getPanes</span><span class="p">();</span>
+</span><span class='line'>       <span class="nx">panes</span><span class="p">.</span><span class="nx">overlayImage</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
+</span><span class='line'>     <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'>     <span class="c1">// Position the overlay </span>
+</span><span class='line'>     <span class="kd">var</span> <span class="nx">point</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getProjection</span><span class="p">().</span><span class="nx">fromLatLngToDivPixel</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">latlng_</span><span class="p">);</span>
+</span><span class='line'>     <span class="k">if</span> <span class="p">(</span><span class="nx">point</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>       <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">point</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
+</span><span class='line'>       <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">point</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
+</span><span class='line'>     <span class="p">}</span>
+</span><span class='line'>   <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>   <span class="nx">CustomMarker</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">remove</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>     <span class="c1">// Check if the overlay was on the map and needs to be removed.</span>
+</span><span class='line'>     <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">div_</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>       <span class="k">this</span><span class="p">.</span><span class="nx">div_</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">div_</span><span class="p">);</span>
+</span><span class='line'>       <span class="k">this</span><span class="p">.</span><span class="nx">div_</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+</span><span class='line'>     <span class="p">}</span>
+</span><span class='line'>   <span class="p">};</span>
+</span><span class='line'>
+</span><span class='line'>   <span class="nx">CustomMarker</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">getPosition</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">latlng_</span><span class="p">;</span>
+</span><span class='line'>   <span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After finding this it was rather easy to replace my normal map markers with the custom ones. I just changed my code from</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="kd">var</span> <span class="nx">marker</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">google</span><span class="p">.</span><span class="nx">maps</span><span class="p">.</span><span class="nx">Marker</span><span class="p">({</span>
+</span><span class='line'>    <span class="nx">position</span><span class="o">:</span> <span class="nx">myLatlng</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">id</span><span class="o">:</span> <span class="nx">myid</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">map</span><span class="o">:</span> <span class="nx">map</span><span class="p">,</span>
+</span><span class='line'>    <span class="nx">title</span><span class="o">:</span> <span class="nx">name</span><span class="p">,</span>
+</span><span class='line'>  <span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>to</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'>  <span class="nx">overlay</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">CustomMarker</span><span class="p">(</span><span class="nx">myLatlng</span><span class="p">,</span> <span class="nx">map</span><span class="p">,</span> <span class="nx">className</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, you&rsquo;ll notice I have a couple of extra parameters in my CustomMarker function call. Luckily with a couple of modifications it is very easy to pass parameters to your custom marker.</p>
+
+<p>All you have to do is add a couple of attributes to the main function, and they are accessible in the marker creation. Here is a basic example</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">CustomMarker</span><span class="p">(</span><span class="nx">latlng</span><span class="p">,</span>  <span class="nx">map</span><span class="p">,</span> <span class="nx">PARAM1</span><span class="p">,</span> <span class="nx">PARAM2</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">latlng_</span> <span class="o">=</span> <span class="nx">latlng</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">CustomParam1</span> <span class="o">=</span> <span class="nx">PARAM1</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">CustomParam2</span> <span class="o">=</span> <span class="nx">PARAM2</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">setMap</span><span class="p">(</span><span class="nx">map</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'><span class="nx">CustomMarker</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">draw</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">me</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">div</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">div_</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">div</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">div</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">div_</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;DIV&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="c1">// Maybe Custom Param 1 is a class name</span>
+</span><span class='line'>    <span class="nx">div</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">CustomParam1</span><span class="p">;</span>
+</span><span class='line'>    <span class="c1">// And Param 2 is some content for the marker</span>
+</span><span class='line'>    <span class="nx">div</span><span class="p">.</span><span class="nx">contentText</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">CustomParam2</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">border</span> <span class="o">=</span> <span class="s1">&#39;2px solid blue&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">position</span> <span class="o">=</span> <span class="s1">&#39;absolute&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">paddingLeft</span> <span class="o">=</span> <span class="s1">&#39;0px&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">cursor</span> <span class="o">=</span> <span class="s1">&#39;pointer&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">width</span> <span class="o">=</span> <span class="s1">&#39;10px&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">height</span> <span class="o">=</span> <span class="s1">&#39;10px&#39;</span><span class="p">;</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">panes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getPanes</span><span class="p">();</span>
+</span><span class='line'>    <span class="nx">panes</span><span class="p">.</span><span class="nx">overlayImage</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">div</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">point</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">getProjection</span><span class="p">().</span><span class="nx">fromLatLngToDivPixel</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">latlng_</span><span class="p">);</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">point</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">left</span> <span class="o">=</span> <span class="nx">point</span><span class="p">.</span><span class="nx">x</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">div</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">top</span> <span class="o">=</span> <span class="nx">point</span><span class="p">.</span><span class="nx">y</span> <span class="o">+</span> <span class="s1">&#39;px&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I personally find that using custom HTML map markers in Google maps is much easier than using their map markers. It allows me to do things like CSS hover states and styling, as well as have better event listeners for buttons/links inside of the info windows.</p>
+
+<p>Here is the <a href="http://gmaps-samples-v3.googlecode.com/svn/trunk/overlayview/custommarker.html">demo from Google</a> I was linked to.</p>
+
+<p>Enjoy your custom map markers, and make something cool.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using Octopress and Github to Host My Website]]></title>
+    <link href="http://aaronmiler.com/blog/hosting-your-octopress-blog-on-github/"/>
+    <updated>2013-06-29T20:47:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/hosting-your-octopress-blog-on-github</id>
+    <content type="html"><![CDATA[<p>Last week I started building my site on Octopress. Coming from Jekyll everything was rather familiar. While developing my site, I listened to a great podcast, called &ldquo;Jekyll and CMS-less websites with Young Hahn and Dave Cole&rdquo; on The Web Ahead. I won&rsquo;t attempt to summarize it as there is so much covered, and it really got me excited about using Jekyll. If you haven&rsquo;t listened to it, you can listen to it <a href="http://5by5.tv/webahead/54">here</a>.</p>
+
+<!-- more -->
+
+
+<p> As I got closer to finishing my site, I started to wonder about how I was going to host it. With my initial Jekyll set up I had just uploaded the static files to a Digital Ocean VPS and called it a day. But the Jekyll podcast got me thinking about hosting my site on GitHub pages for free, so I gave it a shot.</p>
+
+<p>Very quickly I realized how easy it was to throw my site up on github pages. The directions for all of the pieces are a little scattered, so I figured I&rsquo;d put them all here for other Internet goers to enjoy.</p>
+
+<h3>Setting up your GitHub Repo.</h3>
+
+<p><a href="http://pages.github.com/">Github Pages</a> allows you to host static content on GitHub for free. There are two different type of GitHub Pages. There are Project Pages, and User/Orginization pages. The User/Orinization pages must follow this formation <em>username/username.github.io</em> and you can only create your own User/Org pages, you can&rsquo;t take somebody else&rsquo;s name. Project Pages behave a little differently. All you have to do for any given project is add a branch called gh-pages and that is the branch that GitHub will use to build the site. The User/Org page can be accessed from <a href="http://username.github.io">http://username.github.io</a> while the project pages are accessed from <a href="http://username.github.io/project.">http://username.github.io/project.</a></p>
+
+<h3>Setting up your Octopress</h3>
+
+<p>Out of the box Octopress is already all wired up to deploy to GitHub, all you have to do is give it the destination. All you have to do is:</p>
+
+<ul>
+<li>Run <em>rake setup_github_pages</em></li>
+<li>Paste in your repo URL</li>
+</ul>
+
+
+<p>Octopress will then detect if its a User/Org repo, or a project page repo, and create the branches accordingly. If it&rsquo;s a user/org repo it will create your master branch, if it is a project page it will create the gh-pages branch for you.</p>
+
+<h3>Deploying to GitHub</h3>
+
+<p>As if this wasn&rsquo;t easy enough already, this part was just a breeze. All it takes, is running two simple commands</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>rake generate
+</span><span class='line'>rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<p>That&rsquo;s it. Octopress will push your blog to gitHub, and GitHub will build your pages. Since you&rsquo;re pushing static files to GitHub, you don&rsquo;t have to wait for it to compile the page like you would if it were pushing Jekyll source to gitHub.</p>
+
+<h3>Adding your custom domain name</h3>
+
+<p>GitHub makes this almost too easy. First go into your DNS settings and point your domain name to <code>204.232.175.78</code>. Then in the root of your site, add a file called CNAME. My cname file looks like this</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>aaronmiler.com</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It&rsquo;s that easy. GitHub will set up some automatic redirects such as redirecting www.aaronmiler.com to aaronmiler.com, and it will also redirect traffic from aaronmiler.github.io to aaronmiler.com.</p>
+
+<p>I was blown away by how easy this was. I&rsquo;ve often at work created very small rails apps for simple sites, or resorted to using Wordpress. After using Octopress, and Jekyll to push my content to GitHub. I think I have now found my new work flow for smaller sites.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Now Built with Octopress]]></title>
+    <link href="http://aaronmiler.com/blog/now-built-with-octopress/"/>
+    <updated>2013-06-25T22:31:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/now-built-with-octopress</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve deployed my new blog using Otopress. I had been using Jekyll for the past couple of weeks, but I found very quickly that making changes, then rebuildling/testing was very time consuming, and rather annoying. One nice thing about Octopress is that I can simply run the server like I would a rails application and it will pay attention to changes and rebuild the site as needed.</p>
+
+<!--more-->
+
+
+<p>In the process of moving to Octopress I did have to fix some things on my local development environment. I kept getting an error from RVM that the GCC compiler wasn&rsquo;t working, and it was unable to create executables. After looking around stack overflow it seemed like a simple xCode issue. So I tinkered with that for a while.</p>
+
+<p>After about a half hour of tinkering, I realized I wasn&rsquo;t really going anywhere with this. I&rsquo;m a huge advocate for Railsinstaller. If I need to get a machine up and running with rails quickly, that is always the route I take. However it seemed that some of the defaults that Railsinstaller used when I put it on my system kind of backed my RVM into a corner, and I was unable to update. Now Railsinstaller comes with a uninstallation option, so I simply uninstalled it, and reinstalled RVM with the normal install command.</p>
+
+<p>In almost no time RVM installed with no gotchas, and Rails 4.0 was installed successfully. It was a rather quick and painless fix, and hopefully now I&rsquo;ll have a little bit more freedom with my RVM installation.</p>
+]]></content>
+  </entry>
+  
+</feed>

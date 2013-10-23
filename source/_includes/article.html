@@ -1,5 +1,5 @@
 {% if excerpt != false %}
-  <h3 style="font-weight:bold"><a href="{{ root_url }}{{ post.url }}">{{ post.title }}</a></h3>    
+  <h3 style="font-weight:bold"><a href="{{ root_url }}{{ post.url }}">{{ post.title }}</a></h3>      
   <h5 class="date-time">{% include post/date.html %}<i class="icon-calendar-empty"></i> {{ post.date_formatted }}</h5>
   {{ content | excerpt }}
   {% capture excerpted %}{{ content | has_excerpt }}{% endcapture %}
