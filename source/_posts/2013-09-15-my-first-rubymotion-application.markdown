@@ -12,13 +12,13 @@ With these examples, and the rest of the internet to help me. I was able to frak
 
 <!-- more -->
 
-Meet Parquare
+Meet ParkWare
 
-![Parquare](/images/parquare.png)
+![ParkWare](/images/parquare.png)
 
-Parquare is an application that you can use for remembering where you parked your car. With a [supporting API](https://github.com/aaronmiler/car_app_api) the thing that makes this iPhone app stand out is the ability to share your car code with another person.
+ParkWare is an application that you can use for remembering where you parked your car. With a [supporting API](https://github.com/aaronmiler/car_app_api) the thing that makes this iPhone app stand out is the ability to share your car code with another person.
 
-Now hopefully you don't park your car on a highway. But if you do, Parquare will remember where you parked it.
+Now hopefully you don't park your car on a highway. But if you do, ParkWare will remember where you parked it.
 
 While the application works. I'm pretty sure that my code is a mess. Regardless, there are a couple of things I figured out and found helpful. Here are a couple of snippets
 
