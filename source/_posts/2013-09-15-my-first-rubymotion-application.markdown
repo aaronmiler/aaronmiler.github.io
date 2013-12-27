@@ -3,12 +3,12 @@ layout: post
 title: "My First Rubymotion Application"
 date: 2013-09-15 16:22
 comments: true
-categories: ios rubymotion ruby
+categories: iOS, RubyMotion, Ruby
 ---
 
 After struggling to figure out Rubymotion for a while. I found a [great set of tutorials](http://rubymotion-tutorial.com/) by Clay Allsopp. 
 
-With these examples, and the rest of the internet to help me. I was able to frakenstien enough things together to create an application.
+With these examples, and the rest of the internet to help me. I was able to Frankenstein enough things together to create an application.
 
 <!-- more -->
 
@@ -49,6 +49,6 @@ Adding an image to the view
 
 Another thing that made a lot more sense after I looked it up was Frames. When first playing with the numbers I thought they were (X1,Y1),(X2,Y2). When it turns out that a fame is actually [[Xpos,Ypos],[Width,Height]].
 
-Every time I do something in Rubymotion I feel like I'm learning more. As time goes I hope to make more applications and make a better use of this excellent tool. 
+Every time I do something in RubyMotion I feel like I'm learning more. As time goes I hope to make more applications and make a better use of this excellent tool. 
 
 I haven't released the application to the App Store yet, I still think I have some design changes to make. But as soon as I do it will be interesting to see if any bug reports come in. I am also going to start refactoring my code shortly after I release it.

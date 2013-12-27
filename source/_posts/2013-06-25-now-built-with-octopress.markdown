@@ -3,7 +3,7 @@ layout: post
 title: "Now Built with Octopress"
 date: 2013-06-25 22:31
 comments: true
-categories: blogging octopress jekyll
+categories: Blogging, Octopress, Jekyll
 ---
 I've deployed my new blog using Otopress. I had been using Jekyll for the past couple of weeks, but I found very quickly that making changes, then rebuildling/testing was very time consuming, and rather annoying. One nice thing about Octopress is that I can simply run the server like I would a rails application and it will pay attention to changes and rebuild the site as needed.
 <!--more-->

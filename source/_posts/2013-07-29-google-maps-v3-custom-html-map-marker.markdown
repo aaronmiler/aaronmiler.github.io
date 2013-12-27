@@ -3,7 +3,7 @@ layout: post
 title: "Google Maps v3 Custom HTML Map Marker"
 date: 2013-07-29 14:23
 comments: true
-categories: javascript maps google api
+categories: JavaScript, Google Maps
 ---
 I'm currently building a small rails app that will display where all of the breweries located in Portland Oregon are. So far the most complicated thing about it is interfacing with the Google Maps v3 API. Many of the problems I face, Google has examples for in their documentation. However, some examples seem to be buried deep down in the recesses of the documentation and are a little bit harder to come by. 
 <!-- more --> After two or so hours of searching for a way to make custom HTML map markers, I finally found an example in a forum. 

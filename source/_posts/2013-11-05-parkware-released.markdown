@@ -3,10 +3,10 @@ layout: post
 title: "ParkWare Released"
 date: 2013-11-05 18:55
 comments: true
-categories: RubyMotion ParkWare iOS App
+categories: RubyMotion, ParkWare, iOS
 ---
 
-ParkWare finally got approved by Apple and is now avalible on the [App Store](https://itunes.apple.com/us/app/parkware/id729283928). Hooray!
+ParkWare finally got approved by Apple and is now available on the [App Store](https://itunes.apple.com/us/app/parkware/id729283928). Hooray!
 
 I can't quite decide which direction to take this blog post. I've started to write about the app, as well as about developing the app. I decided that I'm going to cover both sides here. 
 
@@ -24,10 +24,10 @@ ParkWare identifies a car using a unique 8 digit HEX code. Users can change this
 
 ### Developing the App
 
-ParkWare was made with RubyMotion. My whole lifetime as a web developer has been spent making things for the web. So this was the first time that I was able to make something almost tangable. This was a great feeling for me, and the fact that I could use Ruby was an added bonus.
+ParkWare was made with RubyMotion. My whole lifetime as a web developer has been spent making things for the web. So this was the first time that I was able to make something almost tangible. This was a great feeling for me, and the fact that I could use Ruby was an added bonus.
 
 Something I really liked about RubyMotion, is the fact that it compiles to machine code. Meaning there is no interperater.
 
-While the community seems very small, and most the google queries for problems come up with Objective-C answers. I still enjoyed using it very much. After a using RubyMotion for a while, I was able to look at Objective-C/iPhone documentation, and adapt it to RubyMotion code. 
+Most the Google queries for problems come up with Objective-C answers. I was able to pop into the IRC channel to get some help with my issues. After a using RubyMotion for a while, I was able to look at Objective-C/iPhone documentation, and adapt it to RubyMotion code. 
 
-All in all I'm just much happier while writing Ruby code. While learning the idocincrosis of iOS within RubyMotion was congusing at first. I have to say I feel as if the code I've written is quite readable, and I had fun doing it. I've still got quite a bit of refactoring to do. But it's something I'm enjoying writing.
+All in all I'm just much happier while writing Ruby code. While learning the idiosyncrasies of iOS within RubyMotion was confusing at first. I have to say I feel as if the code I've written is quite readable, and I had fun doing it. I've still got quite a bit of refactoring to do. But it's something I'm enjoying writing.

@@ -3,7 +3,7 @@ layout: post
 title: 'Manipulating Files with the GitHub API Gem'
 date: 2013-10-06 15:27
 comments: true
-categories: GitHub API Gem
+categories: GitHub API, Gem
 ---
 
 I've been building an application, that is for creating, managing and organizing all those little bits of code you have floating around in your brain. Every piece of knowledge you save within the application gets saved to GitHub in your own personal repository.
