@@ -9,7 +9,7 @@ categories: Elasticsearch, Ruby, Rails
 At work I've been working on replacing our current product search (currently powered by a SaaS) with Elasticsearch. When I first started I set out to find what Ruby gem I should use on this project.
 
 I found a couple of very impressive gems, such as [Search Kick](https://github.com/ankane/searchkick), but unfortunately Search Kick currently doesn't support Mongoid, so I kept looking.
-
+<!-- more -->
 After burning through a couple of other gems, all I'm left with now is the [Elasticsearch Ruby Gem](https://github.com/elasticsearch/elasticsearch-ruby)
 
 Here are some tricks I used that I think made using the Elasticsearch gem easy.
