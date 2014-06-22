@@ -3,7 +3,7 @@ layout: post
 title: "Using Elasticsearch with Ruby and Rails"
 date: 2014-03-30 17:12
 comments: true
-categories: Elasticsearch, Ruby, Rails
+categories: [Elasticsearch,Ruby,Rails]
 ---
 
 At work I've been working on replacing our current product search (currently powered by a SaaS) with Elasticsearch. When I first started I set out to find what Ruby gem I should use on this project.

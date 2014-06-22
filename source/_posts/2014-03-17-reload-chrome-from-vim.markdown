@@ -3,7 +3,7 @@ layout: post
 title: "Reload Chrome from Vim"
 date: 2014-03-17 20:06
 comments: true
-categories: vim chrome shortcuts workflow
+categories: [Vim,Chrome,Shortcuts,Workflow]
 ---
 As my proficiency in vim increases. I've started looking for little short cuts. At the office, I have two monitors, and do some front end development from time to time. The annoying thing about it, is ever since I've switched to vim, I find CMD+Tabbing out of the terminal exceedingly annoying.
 

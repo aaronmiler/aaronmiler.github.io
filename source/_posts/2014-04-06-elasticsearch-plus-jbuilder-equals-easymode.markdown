@@ -3,7 +3,7 @@ layout: post
 title: "Elasticsearch + Jbuilder = Easymode"
 date: 2014-04-06 17:16
 comments: true
-categories: Elasticsearch Ruby Jbuilder
+categories: [Elasticsearch,Ruby,Jbuilder]
 ---
 
 After pondering how to deal with conditional logic in Elasticsearch queries. I finally realized that the query DSL for Elasticsearch is just structured JSON. Which is why Ruby didn't like when the syntax was messed up.

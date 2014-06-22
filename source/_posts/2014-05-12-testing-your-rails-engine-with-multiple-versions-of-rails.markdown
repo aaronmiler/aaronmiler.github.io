@@ -3,7 +3,7 @@ layout: post
 title: "Testing your Rails Engine with Multiple Versions of Rails"
 date: 2014-05-12 21:14
 comments: true
-categories: Rails Engine
+categories: [Rails,Engine]
 ---
 
 I've been building a rails engine over the past couple of weeks. As I near completion, I wanted to make sure that my engine was compatible with multiple versions of Rails.

@@ -3,7 +3,7 @@ layout: post
 title: "ParkWare Released"
 date: 2013-11-05 18:55
 comments: true
-categories: RubyMotion, ParkWare, iOS
+categories: [RubyMotion,ParkWare,iOS]
 ---
 
 ParkWare finally got approved by Apple and is now available on the [App Store](https://itunes.apple.com/us/app/parkware/id729283928). Hooray!

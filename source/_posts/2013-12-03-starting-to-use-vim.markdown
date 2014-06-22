@@ -3,7 +3,7 @@ layout: post
 title: "Starting to use Vim"
 date: 2013-12-03 21:49
 comments: true
-categories: VIM, Environment, Worflow
+categories: [Vim,Environment,Worflow]
 ---
 
 I've started to use Vim. 

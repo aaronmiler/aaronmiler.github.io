@@ -3,7 +3,7 @@ layout: post
 title: "Making the ST/STT Shortcut work with Sublime Text 3"
 date: 2013-10-22 22:08
 comments: true
-categories: ZSH, Z-shell, Sublime Text 3
+categories: [ZSH,Z-shell,Sublime Text 3]
 ---
 
 I recently made the switch to Sublime Text 3. When I did this I finally removed the Sublime Text 2 application from my computer so I would quit having two instances of Sublime Text open at the same time. 

@@ -3,7 +3,7 @@ layout: post
 title: "Using Octopress and Github to Host My Website"
 date: 2013-06-29 20:47
 comments: true
-categories: Blogging, GitHub, Octopress, Hosting
+categories: [Blogging,GitHub,Octopress,Hosting]
 ---
 
 Last week I started building my site on Octopress. Coming from Jekyll everything was rather familiar. While developing my site, I listened to a great podcast, called "Jekyll and CMS-less websites with Young Hahn and Dave Cole" on The Web Ahead. I won't attempt to summarize it as there is so much covered, and it really got me excited about using Jekyll. If you haven't listened to it, you can listen to it [here](http://5by5.tv/webahead/54). 

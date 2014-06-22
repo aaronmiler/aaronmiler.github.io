@@ -3,7 +3,7 @@ layout: post
 title: "Purchased Ruby Motion"
 date: 2013-08-12 22:11
 comments: true
-categories: RubyMotion, Ruby, iOS
+categories: [RubyMotion,Ruby,iOS]
 ---
 A couple of months ago I sarcastically said I was going to make an app for my girlfriend. Much to my surprise shortly after, she asked me if I could make that app for her, for her birthday. So I agreed to it. I've been wanting to get into the iOS space for a while, and this gave me some good motivation.
 <!-- more -->

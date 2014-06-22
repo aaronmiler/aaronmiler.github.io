@@ -3,7 +3,7 @@ layout: post
 title: "Using Devise Invitable"
 date: 2013-08-28 10:16
 comments: true
-categories: Devise, Gem, Ruby, Authentication
+categories: [Devise,Gem,Ruby,Authentication]
 ---
 
 I love using Devise for application authentication. When I was creating the [Realtime QA Tool](https://github.com/quangoinc/realtime_qa) I needed to make sure that the sign up form wasn't publicly accessible. So I started doing a little bit of searching I found [Devise Invitable](https://github.com/scambra/devise_invitable). Devise invitable allows you to invite users via e-mail to your application. 

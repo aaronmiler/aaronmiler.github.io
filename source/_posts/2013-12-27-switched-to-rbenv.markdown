@@ -3,7 +3,7 @@ layout: post
 title: "Switched to rbenv"
 date: 2013-12-27 15:14
 comments: true
-categories: Workflow, rbenv
+categories: [Workflow,rbenv]
 ---
 
 I switched from using RVM to rbenv not too long ago. I'm pretty happy with the switch, and I think I'm better off. There are a couple of reasons that made me switch.

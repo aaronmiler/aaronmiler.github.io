@@ -3,7 +3,7 @@ layout: post
 title: "My First Rubymotion Application"
 date: 2013-09-15 16:22
 comments: true
-categories: iOS, RubyMotion, Ruby
+categories: [iOS,RubyMotion,Ruby]
 ---
 
 After struggling to figure out Rubymotion for a while. I found a [great set of tutorials](http://rubymotion-tutorial.com/) by Clay Allsopp. 

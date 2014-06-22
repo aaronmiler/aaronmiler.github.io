@@ -3,7 +3,7 @@ layout: post
 title: "Enabling hstore with a Rails Migration"
 date: 2014-05-16 20:21
 comments: true
-categories: PostgreSQL Rails Migration
+categories: [PostgreSQL,Rails,Migration]
 ---
 
 If you've used PostgreSQL before with hstore. I'm sure you've come across this while running your migrations.
