@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Workflow | Aaron Miler]]></title>
+  <link href="http://aaronmiler.com/blog/categories/workflow/atom.xml" rel="self"/>
+  <link href="http://aaronmiler.com/"/>
+  <updated>2014-06-29T11:44:40-07:00</updated>
+  <id>http://aaronmiler.com/</id>
+  <author>
+    <name><![CDATA[Aaron Miler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Reload Chrome from Vim]]></title>
+    <link href="http://aaronmiler.com/blog/reload-chrome-from-vim/"/>
+    <updated>2014-03-17T20:06:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/reload-chrome-from-vim</id>
+    <content type="html"><![CDATA[<p>As my proficiency in vim increases. I&rsquo;ve started looking for little short cuts. At the office, I have two monitors, and do some front end development from time to time. The annoying thing about it, is ever since I&rsquo;ve switched to vim, I find CMD+Tabbing out of the terminal exceedingly annoying.</p>
+
+<!-- More -->
+
+
+<p>Then, I happened upon <a href="https://github.com/prasmussen/chrome-cli">Chrome CLI</a> which allows you to send commands to chrome from the command line.</p>
+
+<p>One of the commands that is particularly useful, is the <code>Reload active tab</code> command. Which is issued with <code>chrome-cli reload</code></p>
+
+<p>Another thing that I recently learned, is that you can issue commands to the terminal from Vim as well. All you have to do is prepend your command with a bang (!) and you can issue any command, such as <code>!open .</code> to open the current directory in the finder. Which I use quite frequently.</p>
+
+<p>With these two factoids in my brain, I was able to create a line in my Vim RC file to reload the active chrome tab with a simple keystroke.</p>
+
+<p>Now, when you enter in a shell command into Vim, it pops you out of vim, and waits for input to proceed. So what this command does is this.</p>
+
+<p><code>vim
+" Reload the active chrome tab
+:! chrome-cli reload
+" Press Enter to execute
+&lt;CR&gt;
+" Press Enter again to pop back into Vim
+&lt;CR&gt;
+</code></p>
+
+<p>Here is what it looks like when it&rsquo;s mapped to my leader shortcut</p>
+
+<p><code>vim
+map &lt;Leader&gt;r :! chrome-cli reload&lt;CR&gt;&lt;CR&gt;
+</code></p>
+
+<p>This allows me to put Vim on one monitor, and chrome on the other. So I can just save, then hit <code>&lt;Leader&gt;+r</code> to reload the tab without leaving Vim.</p>
+
+<p>I&rsquo;m tempted to add a save before the reload in order to lessen the keystrokes even more, but I haven&rsquo;t been annoyed enough quite yet.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Switched to rbenv]]></title>
+    <link href="http://aaronmiler.com/blog/switched-to-rbenv/"/>
+    <updated>2013-12-27T15:14:00-08:00</updated>
+    <id>http://aaronmiler.com/blog/switched-to-rbenv</id>
+    <content type="html"><![CDATA[<p>I switched from using RVM to rbenv not too long ago. I&rsquo;m pretty happy with the switch, and I think I&rsquo;m better off. There are a couple of reasons that made me switch.</p>
+
+<!-- more -->
+
+
+<ul>
+<li>Quick Switching between Ruby Versions</li>
+<li>Upgrade with Git</li>
+<li>Lightweight</li>
+<li>Reliable</li>
+</ul>
+
+
+<p>I was using RVM for the longest time, because it is what most everybody recommended. However, I had seen the .ruby-version files throughout other projects, and was wondering why people liked <a href="https://github.com/sstephenson/rbenv">rbenv</a> so much.</p>
+
+<p>Then all of the sudden I started having troubles while switching ruby versions with RVM. My gems got all wonky, and it just became a chore, where I found myself uninstalling my ruby and then reinstalling it just to get it to work properly.</p>
+
+<p>So I switched to rbenv. The switch was super easy, all I had to do was this:</p>
+
+<p><em>Note: You can install it with Brew, but I wanted more control, so I installed it this way</em></p>
+
+<p>``` bash
+git clone <a href="https://github.com/sstephenson/rbenv.git">https://github.com/sstephenson/rbenv.git</a> ~/.rbenv</p>
+
+<h1>I use ZSH so I&rsquo;m adding this to my .zshrc, if you use bash it should be your .bash_profile</h1>
+
+<p>echo &lsquo;export PATH=&ldquo;$HOME/.rbenv/bin:$PATH&rdquo;&rsquo; >> ~/.zshrc
+```</p>
+
+<p>I then installed <a href="https://github.com/sstephenson/ruby-build">ruby-build</a> which is used to compile and install the different versions of ruby. It&rsquo;s just as easy to install</p>
+
+<p><code>bash
+git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
+</code></p>
+
+<p>Now, you should be able to relaunch your terminal, and run <code>rbenv install --list</code> to see all the ruby versions that are availible for install. After that, it&rsquo;s just as simple as running `rbenv install 2.0.0-p427' to install Ruby 2.0.0</p>
+
+<p>After you install a ruby version you can do a couple of different things.</p>
+
+<p>``` bash
+rbenv global 2.0.0-p247 # Set the Global Ruby version
+rbenv local 1.9.3-p385</p>
+
+<h1>Sets the local Ruby Version, also creates a .ruby-version file</h1>
+
+<h1>and will automatically switch to that version when in that directory</h1>
+
+<p>```</p>
+
+<p>The quick switching between ruby versions is the main reason I like using rbenv so much.</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ruby | Aaron Miler]]></title>
+  <link href="http://aaronmiler.com/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://aaronmiler.com/"/>
+  <updated>2014-06-29T11:44:40-07:00</updated>
+  <id>http://aaronmiler.com/</id>
+  <author>
+    <name><![CDATA[Aaron Miler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Elasticsearch + Jbuilder = Easymode]]></title>
+    <link href="http://aaronmiler.com/blog/elasticsearch-plus-jbuilder-equals-easymode/"/>
+    <updated>2014-04-06T17:16:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/elasticsearch-plus-jbuilder-equals-easymode</id>
+    <content type="html"><![CDATA[<p>After pondering how to deal with conditional logic in Elasticsearch queries. I finally realized that the query DSL for Elasticsearch is just structured JSON. Which is why Ruby didn&rsquo;t like when the syntax was messed up.</p>
+
+<!-- more -->
+
+
+<p>Jbuilder to the rescue!</p>
+
+<p>Now with Jbuilder you can stick whatever you want in your queries. Conditional logic, loops, anything really.</p>
+
+<p>Here is what we had before
+``` ruby
+client = Elasticsearch::Client.new host: &ldquo;<a href="http://www.host.com">http://www.host.com</a>&rdquo;
+client.search index: &ldquo;index_name&rdquo;, body: {
+  query: {</p>
+
+<pre><code>term: {
+  FIELD: "VALUE"
+}
+</code></pre>
+
+<p>  }
+}
+```</p>
+
+<p>Here is what we can do now</p>
+
+<p>``` ruby
+require &lsquo;jbuilder&rsquo;
+client = Elasticsearch::Client.new host: &ldquo;<a href="http://www.host.com">http://www.host.com</a>&rdquo;
+query = Jbuilder.encode do |json|
+  json.query do</p>
+
+<pre><code>json.term do
+  json.FIELD.do
+    json.value "TERM"
+  end
+end
+</code></pre>
+
+<p>  end
+end
+client.search index: &ldquo;index_name&rdquo;, body: query
+```</p>
+
+<p>This allows you to do so much more. Like create methods that return a jbuilder object.</p>
+
+<p>The biggest advantage I found from using Jbuilder, was it allowed me to DRY up all of my elastic search methods, and create conditional queries. While working with Jbuilder created it&rsquo;s own problems. It made working with the Elasticsearch DSL a lot easier</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using Elasticsearch with Ruby and Rails]]></title>
+    <link href="http://aaronmiler.com/blog/using-elasticsearch-with-ruby-and-rails/"/>
+    <updated>2014-03-30T17:12:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/using-elasticsearch-with-ruby-and-rails</id>
+    <content type="html"><![CDATA[<p>At work I&rsquo;ve been working on replacing our current product search (currently powered by a SaaS) with Elasticsearch. When I first started I set out to find what Ruby gem I should use on this project.</p>
+
+<p>I found a couple of very impressive gems, such as <a href="https://github.com/ankane/searchkick">Search Kick</a>, but unfortunately Search Kick currently doesn&rsquo;t support Mongoid, so I kept looking.</p>
+
+<!-- more -->
+
+
+<p>After burning through a couple of other gems, all I&rsquo;m left with now is the <a href="https://github.com/elasticsearch/elasticsearch-ruby">Elasticsearch Ruby Gem</a></p>
+
+<p>Here are some tricks I used that I think made using the Elasticsearch gem easy.</p>
+
+<p>Most methods are called against an Elasticsearch object. So in my model, I decided to store that object on initialization.</p>
+
+<p>``` ruby
+class Search
+  attr_accessor :connection
+  def initialize</p>
+
+<pre><code>@connection = Elasticsearch::Client.new hosts: ["myhost1","myhost2" ], randomize_hosts: true
+</code></pre>
+
+<p>  end
+end
+<code>``
+The</code>randomized_hosts: true` allows you the load balance your Elasticsearch hosts</p>
+
+<p>With the above code I can make queries in my model like so
+``` ruby
+def look_for(query)
+self.connection.search index: &ldquo;index_name&rdquo;, body: {</p>
+
+<pre><code>query: {
+  terms: {
+    FIELD: [
+      "VALUE1",
+      "VALUE2"
+     ]
+  }
+},
+size: 25
+</code></pre>
+
+<p>  }
+end
+```
+I found building queries in my ruby code to be quite annoying. Mainly because it took too long for me to get error messages from my Elasticsearch server and tests.</p>
+
+<p>Then I found <a href="https://chrome.google.com/webstore/detail/sense/doinijnbnggojdlcjifpdckfokbbfpbo">Sense</a>. Sense is a chrome extension that allows you to build JSON based queries, that can be converted into the Ruby query DSL rather easily.</p>
+
+<p>Here is the JSON query
+``` javascript
+&ldquo;query&rdquo;: {</p>
+
+<pre><code>"terms": {
+   "FIELD": [
+      "VALUE1",
+      "VALUE2"
+   ]
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>You can see how it translates to the ruby DSL above. The feedback is quick, and it&rsquo;s a great way to test out your queries without doing a ton of modifications to your models.</p>
+
+<p>One of the last roadblocks I ran into was dealing with Facets. I wanted to facet the products based on what Category they were in. Thing is, categories aren&rsquo;t always one word. By default Elasticsearch breaks up all of the words you want to facet. So a category like <code>Category Name</code> would come back with results something like this
+```
+&ldquo;terms&rdquo;: [</p>
+
+<pre><code>        {
+           "term": "Category",
+           "count": 1
+        },
+        {
+           "term": "Name",
+           "count": 1
+        },
+</code></pre>
+
+<p>]
+```</p>
+
+<p>What I wanted is this
+```
+&ldquo;terms&rdquo;: [</p>
+
+<pre><code>        {
+           "term": "Category Name",
+           "count": 1
+        }
+</code></pre>
+
+<p>]
+```</p>
+
+<p>To get there I found out I have to make sure anything I want to facet on (that will have more than 1 word) need to have their indexing set to <code>not_analyzed</code>. Now if you try to index something to an Elasticsearch index that doesn&rsquo;t exist, it will create it for you. But to get a column to be set as not_analyzed you need to create it yourself.</p>
+
+<p>You can do it pretty easily like this
+``` ruby
+  def create_index</p>
+
+<pre><code>self.connection.indices.create index: MYINDEXNAME,
+  body: {
+    mappings: {
+      TYPE: {
+        properties: {
+          field: { type: 'string', index: 'not_analyzed'}
+        }
+      }
+    }
+  }
+</code></pre>
+
+<p>  end
+```</p>
+
+<p>My current roadblock is I can&rsquo;t put any sort of Ruby logic into the middle of the Elasticsearch query DSL, and I can&rsquo;t query for blank as it returns no results.</p>
+
+<p>We&rsquo;ll see if something like that is possible, if not I may end up moving to another gem all together.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My First Rubymotion Application]]></title>
+    <link href="http://aaronmiler.com/blog/my-first-rubymotion-application/"/>
+    <updated>2013-09-15T16:22:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/my-first-rubymotion-application</id>
+    <content type="html"><![CDATA[<p>After struggling to figure out Rubymotion for a while. I found a <a href="http://rubymotion-tutorial.com/">great set of tutorials</a> by Clay Allsopp.</p>
+
+<p>With these examples, and the rest of the internet to help me. I was able to Frankenstein enough things together to create an application.</p>
+
+<!-- more -->
+
+
+<p>Meet ParkWare</p>
+
+<p><img src="/images/parquare.png" alt="ParkWare" /></p>
+
+<p>ParkWare is an application that you can use for remembering where you parked your car. With a <a href="https://github.com/aaronmiler/car_app_api">supporting API</a> the thing that makes this iPhone app stand out is the ability to share your car code with another person.</p>
+
+<p>Now hopefully you don&rsquo;t park your car on a highway. But if you do, ParkWare will remember where you parked it.</p>
+
+<p>While the application works. I&rsquo;m pretty sure that my code is a mess. Regardless, there are a couple of things I figured out and found helpful. Here are a couple of snippets</p>
+
+<p>Button with an Image Background
+<code>ruby
+@back_btn = UIButton.buttonWithType UIButtonTypeCustom
+@back_btn.frame = [[0,0], [122, 40]]
+@back_btn.setBackgroundImage(UIImage.imageNamed("btn_home_locate"), forState: UIControlStateNormal)
+</code></p>
+
+<p>I often used this for centering objects within my view window
+<code>ruby
+@THING.center = CGPointMake(self.view.frame.size.width / 2, Y)
+</code>
+Making a label wrap was tricky. But this seemed to do the trick.
+<code>ruby
+@update = UILabel.alloc.init
+@update.lineBreakMode = UILineBreakModeWordWrap
+@update.numberOfLines = 2 # Or if set to 0, allows for any number of lines
+@update.frame = [[20,165],[300,100]]
+</code></p>
+
+<p>Adding an image to the view
+<code>ruby
+@image = UIImageView.alloc.initWithFrame([[100, 150],[258, 57]])
+@image.image = UIImage.imageNamed("image")
+</code></p>
+
+<p>Another thing that made a lot more sense after I looked it up was Frames. When first playing with the numbers I thought they were (X1,Y1),(X2,Y2). When it turns out that a fame is actually [[Xpos,Ypos],[Width,Height]].</p>
+
+<p>Every time I do something in RubyMotion I feel like I&rsquo;m learning more. As time goes I hope to make more applications and make a better use of this excellent tool.</p>
+
+<p>I haven&rsquo;t released the application to the App Store yet, I still think I have some design changes to make. But as soon as I do it will be interesting to see if any bug reports come in. I am also going to start refactoring my code shortly after I release it.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using Devise Invitable]]></title>
+    <link href="http://aaronmiler.com/blog/using-devise-invitable/"/>
+    <updated>2013-08-28T10:16:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/using-devise-invitable</id>
+    <content type="html"><![CDATA[<p>I love using Devise for application authentication. When I was creating the <a href="https://github.com/quangoinc/realtime_qa">Realtime QA Tool</a> I needed to make sure that the sign up form wasn&rsquo;t publicly accessible. So I started doing a little bit of searching I found <a href="https://github.com/scambra/devise_invitable">Devise Invitable</a>. Devise invitable allows you to invite users via e-mail to your application.</p>
+
+<!-- more -->
+
+
+<p>Getting up and running with Devise Invitable is really easy. The documentation is pretty good and walks you through the setup process step by step.</p>
+
+<p>You start out with two simple commands</p>
+
+<p><code>
+rails generate devise_invitable:install
+rails generate devise_invitable MODEL
+</code></p>
+
+<p>Then, update your devise model to include the <code>:invitable</code> module
+<code>ruby
+class User &lt; ActiveRecord::Base
+  devise :database_authenticatable, :confirmable, :invitable
+end
+</code></p>
+
+<p>and you&rsquo;re good to go.</p>
+
+<p>After Devise Invitable is installed and ready to go, I usually end up making an invitation action in one of my controllers. Devise Invitable does allow you to make a dedicated controller for it. But I find I can usually accomplish everything with a simple action that looks something like that</p>
+
+<p><code>ruby
+def invite_user
+  @user = User.invite!(:email =&gt; params[:user][:email], :name =&gt; params[:user][:name])
+  render :json =&gt; @user
+end
+</code>
+Just like that, you can now invite users to your application.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Purchased Ruby Motion]]></title>
+    <link href="http://aaronmiler.com/blog/purchased-ruby-motion/"/>
+    <updated>2013-08-12T22:11:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/purchased-ruby-motion</id>
+    <content type="html"><![CDATA[<p>A couple of months ago I sarcastically said I was going to make an app for my girlfriend. Much to my surprise shortly after, she asked me if I could make that app for her, for her birthday. So I agreed to it. I&rsquo;ve been wanting to get into the iOS space for a while, and this gave me some good motivation.</p>
+
+<!-- more -->
+
+
+<p>In the past I&rsquo;ve tried to get into the mobile app space. I&rsquo;ve tried Appcelerator, Phonegap, and Cordova. None of which were really quite what I was looking for, and because each of the tools aimed for cross platform abilities. You lost some of the device features. Now while it&rsquo;s possible that these tools have evolved, I really wasn&rsquo;t a big fan of how they worked.</p>
+
+<p>While at Railsconf I attended <a href="http://www.youtube.com/watch?v=7v3_t5SK8DM">a talk</a> about something called <a href="http://www.rubymotion.com">RubyMotion</a>. RubyMotion lets you right iOS apps in Ruby. The biggest appeal to me is that Rubymotion doesn&rsquo;t actually run the application in Ruby. It compiles to executable code that interacts with the iOS device. Meaning there are no features lost when using Rubymotion.</p>
+
+<p>After completing the Rails powered API for the iPhone application I intend to make. I quickly purchased a Rubymotion license key, and realized I have no idea what I&rsquo;m doing. Luckly I was able to find <a href="http://pragprog.com/book/carubym/rubymotion">a nice book about Rubymotion</a> from the pragmatic press. Hopefully this will get me up and running with Rubymotion.</p>
+
+<p>I almost forgot to mention my favorite feature of Rubymotion. When you fire up your application to debug on your phone or a virtual device. You also get the Rubymotion REPL. Which is just like running IRB on a Rails application. This allows you to update your app and see the changes real time in your terminal. It&rsquo;s pretty awesome firing up a completely blank application, and telling it to display an alert message from the terminal.</p>
+
+<p>TL;DR Take a good look at Rubymotion. It&rsquo;s cool</p>
+]]></content>
+  </entry>
+  
+</feed>

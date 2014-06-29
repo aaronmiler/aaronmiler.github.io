@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ParkWare | Aaron Miler]]></title>
+  <link href="http://aaronmiler.com/blog/categories/parkware/atom.xml" rel="self"/>
+  <link href="http://aaronmiler.com/"/>
+  <updated>2014-06-29T11:44:40-07:00</updated>
+  <id>http://aaronmiler.com/</id>
+  <author>
+    <name><![CDATA[Aaron Miler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[ParkWare Released]]></title>
+    <link href="http://aaronmiler.com/blog/parkware-released/"/>
+    <updated>2013-11-05T18:55:00-08:00</updated>
+    <id>http://aaronmiler.com/blog/parkware-released</id>
+    <content type="html"><![CDATA[<p>ParkWare finally got approved by Apple and is now available on the <a href="https://itunes.apple.com/us/app/parkware/id729283928">App Store</a>. Hooray!</p>
+
+<p>I can&rsquo;t quite decide which direction to take this blog post. I&rsquo;ve started to write about the app, as well as about developing the app. I decided that I&rsquo;m going to cover both sides here.</p>
+
+<!-- more -->
+
+
+
+
+<div style="max-width:250px;width:25%;float:right;margin:10px;"><img src="http://aaronmiler.com/images/blog/parkware_app_store.jpg" width="100%" /></div>
+
+
+<h3>About the App</h3>
+
+<p>ParkWare is an app to track where you parked your car using your phones GPS. While there are apps on the app store that already accomplish this. There is a specific problem I wanted to solve.</p>
+
+<p>My girlfriend and I share a car, and one of the questions I get almost every day is &ldquo;Where did we park the car?&rdquo;. The solution to this problem, was an app we could both use on our iPhones, and we could park/locate the same car.</p>
+
+<p>ParkWare identifies a car using a unique 8 digit HEX code. Users can change this code within the settings page, and if they use the same code as another user. It allows them to share a car, parking and locating the same car using the API.</p>
+
+<h3>Developing the App</h3>
+
+<p>ParkWare was made with RubyMotion. My whole lifetime as a web developer has been spent making things for the web. So this was the first time that I was able to make something almost tangible. This was a great feeling for me, and the fact that I could use Ruby was an added bonus.</p>
+
+<p>Something I really liked about RubyMotion, is the fact that it compiles to machine code. Meaning there is no interperater.</p>
+
+<p>Most the Google queries for problems come up with Objective-C answers. I was able to pop into the IRC channel to get some help with my issues. After a using RubyMotion for a while, I was able to look at Objective-C/iPhone documentation, and adapt it to RubyMotion code.</p>
+
+<p>All in all I&rsquo;m just much happier while writing Ruby code. While learning the idiosyncrasies of iOS within RubyMotion was confusing at first. I have to say I feel as if the code I&rsquo;ve written is quite readable, and I had fun doing it. I&rsquo;ve still got quite a bit of refactoring to do. But it&rsquo;s something I&rsquo;m enjoying writing.</p>
+]]></content>
+  </entry>
+  
+</feed>

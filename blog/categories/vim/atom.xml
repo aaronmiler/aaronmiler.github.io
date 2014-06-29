@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Vim | Aaron Miler]]></title>
+  <link href="http://aaronmiler.com/blog/categories/vim/atom.xml" rel="self"/>
+  <link href="http://aaronmiler.com/"/>
+  <updated>2014-06-29T11:44:40-07:00</updated>
+  <id>http://aaronmiler.com/</id>
+  <author>
+    <name><![CDATA[Aaron Miler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Reload Chrome from Vim]]></title>
+    <link href="http://aaronmiler.com/blog/reload-chrome-from-vim/"/>
+    <updated>2014-03-17T20:06:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/reload-chrome-from-vim</id>
+    <content type="html"><![CDATA[<p>As my proficiency in vim increases. I&rsquo;ve started looking for little short cuts. At the office, I have two monitors, and do some front end development from time to time. The annoying thing about it, is ever since I&rsquo;ve switched to vim, I find CMD+Tabbing out of the terminal exceedingly annoying.</p>
+
+<!-- More -->
+
+
+<p>Then, I happened upon <a href="https://github.com/prasmussen/chrome-cli">Chrome CLI</a> which allows you to send commands to chrome from the command line.</p>
+
+<p>One of the commands that is particularly useful, is the <code>Reload active tab</code> command. Which is issued with <code>chrome-cli reload</code></p>
+
+<p>Another thing that I recently learned, is that you can issue commands to the terminal from Vim as well. All you have to do is prepend your command with a bang (!) and you can issue any command, such as <code>!open .</code> to open the current directory in the finder. Which I use quite frequently.</p>
+
+<p>With these two factoids in my brain, I was able to create a line in my Vim RC file to reload the active chrome tab with a simple keystroke.</p>
+
+<p>Now, when you enter in a shell command into Vim, it pops you out of vim, and waits for input to proceed. So what this command does is this.</p>
+
+<p><code>vim
+" Reload the active chrome tab
+:! chrome-cli reload
+" Press Enter to execute
+&lt;CR&gt;
+" Press Enter again to pop back into Vim
+&lt;CR&gt;
+</code></p>
+
+<p>Here is what it looks like when it&rsquo;s mapped to my leader shortcut</p>
+
+<p><code>vim
+map &lt;Leader&gt;r :! chrome-cli reload&lt;CR&gt;&lt;CR&gt;
+</code></p>
+
+<p>This allows me to put Vim on one monitor, and chrome on the other. So I can just save, then hit <code>&lt;Leader&gt;+r</code> to reload the tab without leaving Vim.</p>
+
+<p>I&rsquo;m tempted to add a save before the reload in order to lessen the keystrokes even more, but I haven&rsquo;t been annoyed enough quite yet.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Starting to use Vim]]></title>
+    <link href="http://aaronmiler.com/blog/starting-to-use-vim/"/>
+    <updated>2013-12-03T21:49:00-08:00</updated>
+    <id>http://aaronmiler.com/blog/starting-to-use-vim</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve started to use Vim.</p>
+
+<p>I feel incredibly inefficient right now. But I know, that with time I will learn how to efficiently edit with Vim.</p>
+
+<!-- more -->
+
+
+<p>There are a couple of things I need to figure out.</p>
+
+<ul>
+<li>How to open/edit new files more efficiently</li>
+<li>How to browse a projects file structure</li>
+<li>How to efficiently execute commands from Vim (Git, RSpec and such)</li>
+</ul>
+
+
+<p>I&rsquo;m still quite used to using Sublime Text at this point. One of the things I miss the most is the Command+T shortcut. This brought up a dialog where you could start typing part of the path or filename. It would then autocomplete the file for you, and you could open it. When you knew what you were looking for this resulted in very quick file opens.</p>
+
+<p>I have set a couple of useful shortcuts for Vim that have helped me in the learning process though. For example:</p>
+
+<p><code>
+" Don't use the arrow keys
+noremap &lt;up&gt;    :echoerr 'USE K TO GO UP'&lt;CR&gt;
+noremap &lt;down&gt;  :echoerr 'USE J TO GO DOWN'&lt;CR&gt;
+noremap &lt;left&gt;  :echoerr 'USE H TO GO LEFT'&lt;CR&gt;
+noremap &lt;right&gt; :echoerr 'USE L TO GO RIGHT'&lt;CR&gt;
+</code></p>
+
+<p>When I first started I found myself drifting to the arrow keys every now and again. This makes it so every time I try to use the arrow keys, I get a nice red error in vim that tells me to use the actual navigation command for that.</p>
+
+<p>Another thing I found helpful was this shortcut
+<code>
+" Remap jk to leave insert mode
+imap jk &lt;ESC&gt;
+</code></p>
+
+<p>This allows me to exit insert mode very easily.</p>
+
+<p>The learning curve is steep, but I know that with time will come Vim Mastery.</p>
+
+<p>What I&rsquo;m really looking forward to, is the super speedy vim editing I&rsquo;ve seen from others live coding at conferences.</p>
+]]></content>
+  </entry>
+  
+</feed>
