@@ -6,22 +6,20 @@ comments: true
 categories: [Devise,Gem,Ruby,Authentication]
 ---
 
-I love using Devise for application authentication. When I was creating the [Realtime QA Tool](https://github.com/quangoinc/realtime_qa) I needed to make sure that the sign up form wasn't publicly accessible. So I started doing a little bit of searching I found [Devise Invitable](https://github.com/scambra/devise_invitable). Devise invitable allows you to invite users via e-mail to your application. 
+I love using Devise for application authentication. When I was creating the [Realtime QA Tool](https://github.com/quangoinc/realtime_qa) I needed to make sure that the sign up form wasn't publicly accessible. So I started doing a little bit of searching I found [Devise Invitable](https://github.com/scambra/devise_invitable). Devise invitable allows you to invite users via e-mail to your application.
 
 <!-- more -->
 
-Without this gem the only way I could think of to invite users was to create their login myself, with a temporary password. Having done that with some services in the past. I felt like that was a very primitive solution, so I set out to find a better solution. 
+Getting up and running with Devise Invitable is really easy. The documentation is pretty good and walks you through the setup process step by step.
 
-That is when I found Devise Invitable. The documentation for Devise invitable is great, so getting up and running.
-
-Start out with two simple commands
+You start out with two simple commands
 
 ```
 rails generate devise_invitable:install
 rails generate devise_invitable MODEL
 ```
 
-Update your devise model
+Then, update your devise model to include the `:invitable` module
 ``` ruby
 class User < ActiveRecord::Base
   devise :database_authenticatable, :confirmable, :invitable
