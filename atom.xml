@@ -4,7 +4,7 @@
   <title><![CDATA[Aaron Miler]]></title>
   <link href="http://aaronmiler.com/atom.xml" rel="self"/>
   <link href="http://aaronmiler.com/"/>
-  <updated>2014-06-29T11:52:48-07:00</updated>
+  <updated>2014-09-06T11:25:05-07:00</updated>
   <id>http://aaronmiler.com/</id>
   <author>
     <name><![CDATA[Aaron Miler]]></name>
@@ -14,6 +14,124 @@
 
   
   <entry>
+    <title type="html"><![CDATA[9 Line Grid using Bourbon, Neat and Sass]]></title>
+    <link href="http://aaronmiler.com/blog/9-line-grid-using-bourbon-neat-and-sass/"/>
+    <updated>2014-09-06T11:11:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/9-line-grid-using-bourbon-neat-and-sass</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve started created a lot of my projects using the tools Thoughtbot puts out there. One of the tools I&rsquo;ve recently started using is <a href="http://bourbon.io">Broubon</a> and <a href="http://neat.bourbon.io">Neat</a>. Bourbon is a lightweight mixin library for Sass, and Neat is a grid framework.</p>
+
+<!-- more -->
+
+
+<p>Neat allows you to make grids using mixins. It makes defining your own grid very easy, and fast.</p>
+
+<p>Here is an example of how you might create some basic grid elements using Broubon and Neat</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class='sass'><span class='line'><span class="nc">.container</span> <span class="err">{</span>
+</span><span class='line'>  <span class="k">@include</span><span class="nd"> outer-container</span><span class="err">;</span>
+</span><span class='line'><span class="err">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nc">.row</span> <span class="err">{</span>
+</span><span class='line'>  <span class="k">@include</span><span class="nd"> row</span><span class="err">;</span>
+</span><span class='line'>  <span class="k">&amp;</span><span class="nd">:last-child</span> <span class="err">{</span>
+</span><span class='line'>    <span class="c1">// Zeros out right padding to make the last element fit</span>
+</span><span class='line'>    <span class="k">@include</span><span class="nd"> omega</span><span class="err">;</span>
+</span><span class='line'>  <span class="err">}</span>
+</span><span class='line'><span class="err">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nc">.grid</span> <span class="err">{</span>
+</span><span class='line'>  <span class="nc">.col-1</span> <span class="err">{</span>
+</span><span class='line'>    <span class="k">@include</span><span class="nd"> span-columns</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>  <span class="err">}</span>
+</span><span class='line'>  <span class="nc">...</span>
+</span><span class='line'>  <span class="nc">.col-12</span> <span class="err">{</span>
+</span><span class='line'>    <span class="k">@include</span><span class="nd"> span-columns</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+</span><span class='line'>  <span class="err">}</span>
+</span><span class='line'><span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now you can see above, that defining all 12 columns of your basic grid layout can get a little bit annoying. Luckily, Sass comes with some built in features that allow us to simplify this process.</p>
+
+<p>Here is how you can cut the whole grid fundamentals down to less than 20 lines.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='sass'><span class='line'><span class="c1">// Define your column numbers in an array</span>
+</span><span class='line'><span class="nv">$columns</span><span class="o">:</span> <span class="p">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">,</span><span class="mi">4</span><span class="o">,</span><span class="mi">5</span><span class="o">,</span><span class="mi">6</span><span class="o">,</span><span class="mi">7</span><span class="o">,</span><span class="mi">8</span><span class="o">,</span><span class="mi">9</span><span class="o">,</span><span class="mi">10</span><span class="o">,</span><span class="mi">11</span><span class="o">,</span><span class="mi">12</span><span class="p">)</span><span class="err">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="nc">.container</span> <span class="err">{</span>
+</span><span class='line'>  <span class="k">@include</span><span class="nd"> outer-container</span><span class="err">;</span>
+</span><span class='line'><span class="err">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="nc">.row</span> <span class="err">{</span>
+</span><span class='line'>  <span class="k">@include</span><span class="nd"> row</span><span class="err">;</span>
+</span><span class='line'>  <span class="nc">.grid</span><span class="nd">:last-child</span> <span class="err">{</span>
+</span><span class='line'>    <span class="k">@include</span><span class="nd"> omega</span>
+</span><span class='line'>  <span class="err">}</span>
+</span><span class='line'><span class="err">}</span>
+</span><span class='line'><span class="nc">.grid</span> <span class="err">{</span>
+</span><span class='line'>  <span class="c1">// Each loop, to go through the column sizes</span>
+</span><span class='line'>  <span class="k">@each</span> <span class="err">$</span><span class="nt">col</span> <span class="nt">in</span> <span class="err">$</span><span class="nt">columns</span> <span class="err">{</span>
+</span><span class='line'>    <span class="c1">// Dynmaically name each column size col-X where X is the number</span>
+</span><span class='line'>    <span class="k">&amp;</span><span class="nc">.col-</span><span class="si">#{</span><span class="nv">$col</span><span class="si">}</span> <span class="err">{</span>
+</span><span class='line'>      <span class="c1">// Include the mixin to span X number of columns</span>
+</span><span class='line'>      <span class="k">@include</span><span class="nd"> span-columns</span><span class="p">(</span><span class="nv">$col</span><span class="p">)</span><span class="err">;</span>
+</span><span class='line'>    <span class="err">}</span>
+</span><span class='line'>  <span class="err">}</span>
+</span><span class='line'><span class="err">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>There you have it, a simple, quick way to get a fundamental grid system set up!</p>
+
+<p>Thanks <a href="http://thoughtbot.com">thoughtbot</a> for all of your awesome <a href="http://github.com/thoughtbot">open source tools</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[How Running Affects My Development]]></title>
     <link href="http://aaronmiler.com/blog/how-running-affects-my-development/"/>
     <updated>2014-06-21T21:09:00-07:00</updated>
@@ -21,7 +139,7 @@
     <content type="html"><![CDATA[<p>In the beginning of March, my girlfriend and I rescued an 11 month of Siberian Husky. We decided to name him Helo (after Battlestar of course) and he is quite the handful.<!-- more --></p>
 
 <p><span style="float:right;margin: 15px 0px 15px 20px;width:375px;">
-<img src="http://aaronmiler.com/images/helo.jpg" title="Helo the Husky" alt="Helo the Husky" />
+<img src="http://aaronmiler.com/images/Helo.jpg" title="Helo the Husky" alt="Helo the Husky" />
 <span style="display:block;text-align:center;"> My Husky, Helo </span>
 </span></p>
 
