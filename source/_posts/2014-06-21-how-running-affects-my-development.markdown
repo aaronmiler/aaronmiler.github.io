@@ -10,7 +10,7 @@ categories: [Life,Fitness]
 In the beginning of March, my girlfriend and I rescued an 11 month of Siberian Husky. We decided to name him Helo (after Battlestar of course) and he is quite the handful.<!-- more -->
 
 <span style="float:right;margin: 15px 0px 15px 20px;width:375px;">
-![Helo the Husky](/images/helo.jpg "Helo the Husky")
+![Helo the Husky](/images/Helo.jpg "Helo the Husky")
 <span style="display:block;text-align:center;"> My Husky, Helo </span>
 </span>
 
