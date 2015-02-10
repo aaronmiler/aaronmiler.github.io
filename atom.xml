@@ -4,7 +4,7 @@
   <title><![CDATA[Aaron Miler]]></title>
   <link href="http://aaronmiler.com/atom.xml" rel="self"/>
   <link href="http://aaronmiler.com/"/>
-  <updated>2014-09-06T11:26:38-07:00</updated>
+  <updated>2015-02-09T19:10:05-08:00</updated>
   <id>http://aaronmiler.com/</id>
   <author>
     <name><![CDATA[Aaron Miler]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Creating Docket]]></title>
+    <link href="http://aaronmiler.com/blog/creating-docket/"/>
+    <updated>2015-02-09T19:00:00-08:00</updated>
+    <id>http://aaronmiler.com/blog/creating-docket</id>
+    <content type="html"><![CDATA[<p>Last year I bought a full year calendar to hang on my wall. It was a pretty great way
+for me to get at a glance information for what I had going on. Unfortunately I couldn&rsquo;t
+find the one I bought last year, so this year I&rsquo;m going without one.</p>
+
+<!-- more -->
+
+
+<p>However, what this inspired me to do, is build something to facilitate what the
+calendar provided, at a glance information.</p>
+
+<p>I can&rsquo;t tell you how often I ask Siri the same questions over and over.</p>
+
+<blockquote><p>What&rsquo;s the weather?</p>
+
+<p>What&rsquo;s the forecast?</p>
+
+<p>When is my next meeting?</p></blockquote>
+
+<p>I have decided to build myself an application that for now, I&rsquo;m calling Docket.</p>
+
+<p>Docket will provide me with at a glance information for my schedule, weather, and
+who knows what else I may add to it.</p>
+
+<p>My plan is to blog about the interesting problems that I have to solve while
+building this application, in hopes that someone else can learn form my experiences,
+or even that I may help myself down the road.</p>
+
+<p>So, without further ado. <code>rails new Docket</code></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[9 Line Grid using Bourbon, Neat and Sass]]></title>

@@ -5,12 +5,13 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title> How Running Affects My Development | Aaron Miler</title>
+  <title> Creating Docket | Aaron Miler</title>
   <link rel="author" href="https://plus.google.com/106372082297835304384"/>
 
 
   
-  <meta name="description" content="How Running Affects My Development Jun 21st, 2014 In the beginning of March, my girlfriend and I rescued an 11 month of Siberian Husky. We decided &hellip;">
+  <meta name="description" content="Creating Docket Feb 9th, 2015 Last year I bought a full year calendar to hang on my wall. It was a pretty great way
+for me to get at a glance &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://aaronmiler.com/blog/how-running-affects-my-development">
+  <link rel="canonical" href="http://aaronmiler.com/blog/creating-docket">
   <link href="/favicon.png" rel="icon">
   <link href='http://fonts.googleapis.com/css?family=Quicksand:300,400' rel='stylesheet' type='text/css'>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
@@ -108,7 +109,7 @@
 
 <div class="jumbotron">
   <div class="container">
-    <h1>How Running Affects My Development</h1>
+    <h1>Creating Docket</h1>
   </div>
 </div>
   <p class="date-time">
@@ -123,22 +124,36 @@
   
 
 
-<i class="icon-calendar-empty"></i> Jun 21<span>st</span>, 2014</p>
+<i class="icon-calendar-empty"></i> Feb 9<span>th</span>, 2015</p>
   
-  <p>In the beginning of March, my girlfriend and I rescued an 11 month of Siberian Husky. We decided to name him Helo (after Battlestar of course) and he is quite the handful.<!-- more --></p>
+  <p>Last year I bought a full year calendar to hang on my wall. It was a pretty great way
+for me to get at a glance information for what I had going on. Unfortunately I couldn&rsquo;t
+find the one I bought last year, so this year I&rsquo;m going without one.</p>
 
-<p><span style="float:right;margin: 15px 0px 15px 20px;width:375px;">
-<img src="/images/Helo.jpg" title="Helo the Husky" alt="Helo the Husky" />
-<span style="display:block;text-align:center;"> My Husky, Helo </span>
-</span></p>
+<!-- more -->
 
-<p>You see, Helo is just a constant ball of energy. We knew this going in, and so my plan was to start running with Helo every morning.</p>
 
-<p>So after we got the dog, I started a new morning routine. Wake up at 6, grab the dog, and go out for a run. At first the running was a chore. I sometimes skipped it because I didn&rsquo;t feel like it, or maybe I was just lazy. But now I can&rsquo;t seem to bring myself to skip a day.</p>
+<p>However, what this inspired me to do, is build something to facilitate what the
+calendar provided, at a glance information.</p>
 
-<p>What I&rsquo;ve realized, is that running is meditative for me. While I&rsquo;m running, I&rsquo;m not really thinking about anything. Work doesn&rsquo;t exist, that bug I&rsquo;ve been wrestling with doesn&rsquo;t exist, the roadblock for that new feature is irrelevant, nothing is on my mind. I&rsquo;m just running.</p>
+<p>I can&rsquo;t tell you how often I ask Siri the same questions over and over.</p>
 
-<p>I&rsquo;ve found that this is a great way for me to start the day. My run energizes me, and gives me a chance to clear my head.</p>
+<blockquote><p>What&rsquo;s the weather?</p>
+
+<p>What&rsquo;s the forecast?</p>
+
+<p>When is my next meeting?</p></blockquote>
+
+<p>I have decided to build myself an application that for now, I&rsquo;m calling Docket.</p>
+
+<p>Docket will provide me with at a glance information for my schedule, weather, and
+who knows what else I may add to it.</p>
+
+<p>My plan is to blog about the interesting problems that I have to solve while
+building this application, in hopes that someone else can learn form my experiences,
+or even that I may help myself down the road.</p>
+
+<p>So, without further ado. <code>rails new Docket</code></p>
 
 
 
@@ -154,14 +169,6 @@
         
 
 
-
-  <a href="/blog/categories/Fitness/"><span class="badge">Fitness</span></a>
-
-  <a href="/blog/categories/Life/"><span class="badge">Life</span></a>
-
-
-
-
         </p>
       </div>
       
@@ -172,10 +179,8 @@
       <div class="span12">
         <p class="meta">
           
-            <a class="basic-alignment left" href="/blog/enabling-hstore-with-a-rails-migration/" title="Previous Post: Enabling hstore with a Rails Migration">&laquo; Enabling hstore with a Rails Migration</a>
+            <a class="basic-alignment left" href="/blog/9-line-grid-using-bourbon-neat-and-sass/" title="Previous Post: 9 Line Grid using Bourbon, Neat and Sass">&laquo; 9 Line Grid using Bourbon, Neat and Sass</a>
           
-          
-            <a class="basic-alignment right" href="/blog/9-line-grid-using-bourbon-neat-and-sass/" title="Next Post: 9 Line Grid using Bourbon, Neat and Sass">9 Line Grid using Bourbon, Neat and Sass &raquo;</a>
           
         </p>
       </div>
@@ -213,8 +218,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://aaronmiler.com/blog/how-running-affects-my-development/';
-        var disqus_url = 'http://aaronmiler.com/blog/how-running-affects-my-development/';
+        var disqus_identifier = 'http://aaronmiler.com/blog/creating-docket/';
+        var disqus_url = 'http://aaronmiler.com/blog/creating-docket/';
         var disqus_script = 'embed.js';
       
     (function () {
