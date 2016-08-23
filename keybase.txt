@@ -1,0 +1,54 @@
+==================================================================
+https://keybase.io/aaronmiler
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of http://aaronmiler.com
+  * I am aaronmiler (https://keybase.io/aaronmiler) on keybase.
+  * I have a public key ASBVS5F9EFYmNG9bsNPpeAIBPu1SQXY5mNHQLl4PihwTRAo
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "0120554b917d105626346f5bb0d3e97802013eed5241763998d1d02e5e0f8a1c13440a",
+            "host": "keybase.io",
+            "kid": "0120554b917d105626346f5bb0d3e97802013eed5241763998d1d02e5e0f8a1c13440a",
+            "uid": "423be5c854868659192089c2163b0e19",
+            "username": "aaronmiler"
+        },
+        "service": {
+            "hostname": "aaronmiler.com",
+            "protocol": "http:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "client": {
+        "name": "keybase.io go client",
+        "version": "1.0.16"
+    },
+    "ctime": 1471981546,
+    "expire_in": 504576000,
+    "merkle_root": {
+        "ctime": 1471981477,
+        "hash": "5aa44e40e85c6fef4dc1abf215772ce9c96c1daa707cfacca08d00128185e2f10120045b9589a58050a3ca7139f8a2dfe0d7697e2425f543cdb0209957f6d0f5",
+        "seqno": 597361
+    },
+    "prev": "64dc897561deb7e2a428e089cfb64049e7d89353c169c02ad98c6c05075e8f16",
+    "seqno": 10,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgVUuRfRBWJjRvW7DT6XgCAT7tUkF2OZjR0C5eD4ocE0QKp3BheWxvYWTFAvh7ImJvZHkiOnsia2V5Ijp7ImVsZGVzdF9raWQiOiIwMTIwNTU0YjkxN2QxMDU2MjYzNDZmNWJiMGQzZTk3ODAyMDEzZWVkNTI0MTc2Mzk5OGQxZDAyZTVlMGY4YTFjMTM0NDBhIiwiaG9zdCI6ImtleWJhc2UuaW8iLCJraWQiOiIwMTIwNTU0YjkxN2QxMDU2MjYzNDZmNWJiMGQzZTk3ODAyMDEzZWVkNTI0MTc2Mzk5OGQxZDAyZTVlMGY4YTFjMTM0NDBhIiwidWlkIjoiNDIzYmU1Yzg1NDg2ODY1OTE5MjA4OWMyMTYzYjBlMTkiLCJ1c2VybmFtZSI6ImFhcm9ubWlsZXIifSwic2VydmljZSI6eyJob3N0bmFtZSI6ImFhcm9ubWlsZXIuY29tIiwicHJvdG9jb2wiOiJodHRwOiJ9LCJ0eXBlIjoid2ViX3NlcnZpY2VfYmluZGluZyIsInZlcnNpb24iOjF9LCJjbGllbnQiOnsibmFtZSI6ImtleWJhc2UuaW8gZ28gY2xpZW50IiwidmVyc2lvbiI6IjEuMC4xNiJ9LCJjdGltZSI6MTQ3MTk4MTU0NiwiZXhwaXJlX2luIjo1MDQ1NzYwMDAsIm1lcmtsZV9yb290Ijp7ImN0aW1lIjoxNDcxOTgxNDc3LCJoYXNoIjoiNWFhNDRlNDBlODVjNmZlZjRkYzFhYmYyMTU3NzJjZTljOTZjMWRhYTcwN2NmYWNjYTA4ZDAwMTI4MTg1ZTJmMTAxMjAwNDViOTU4OWE1ODA1MGEzY2E3MTM5ZjhhMmRmZTBkNzY5N2UyNDI1ZjU0M2NkYjAyMDk5NTdmNmQwZjUiLCJzZXFubyI6NTk3MzYxfSwicHJldiI6IjY0ZGM4OTc1NjFkZWI3ZTJhNDI4ZTA4OWNmYjY0MDQ5ZTdkODkzNTNjMTY5YzAyYWQ5OGM2YzA1MDc1ZThmMTYiLCJzZXFubyI6MTAsInRhZyI6InNpZ25hdHVyZSJ9o3NpZ8RANE5jgR4AIsnmjdDCH+Y7xU0cvmov2NpnDh2wYxuVeJbA3huk4+Z+NjLN1d7MzbSofqXnVj6vNK/XUCj3c6rXBKhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIOcYr5R6q5bluDkW1Q0WIZvh9RXW5FhTdvnd1CM//B64o3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/aaronmiler
+
+==================================================================
