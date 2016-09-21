@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Rails | Aaron Miler]]></title>
+  <link href="http://aaronmiler.com/blog/categories/rails/atom.xml" rel="self"/>
+  <link href="http://aaronmiler.com/"/>
+  <updated>2016-09-21T11:08:57-07:00</updated>
+  <id>http://aaronmiler.com/</id>
+  <author>
+    <name><![CDATA[Aaron Miler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Dynamic SCSS Rendering with Rails]]></title>
+    <link href="http://aaronmiler.com/blog/dynamic-scss-rendering/"/>
+    <updated>2016-06-05T18:55:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/dynamic-scss-rendering</id>
+    <content type="html"><![CDATA[<h1>Dynamically Rendering SCSS in Rails</h1>
+
+<p>Recently at I came across a problem where I needed to dynamically include a stylesheet, or scss snippet depending on what kind of content I was showing. My first inclination was to use something like this:</p>
+
+<p>``` ruby</p>
+
+<h1>app/views/layouts.application.html.erb</h1>
+
+<p>&hellip;
+&lt;%= yield :head %></p>
+
+<h1>app/views/some_controller/some_view.html.erb</h1>
+
+<p>&lt;% content_for :head do %>
+  &lt;%= stylesheet_link_tag &lsquo;/path_to/stylesheet.css&rsquo; %>
+&lt;% end %>
+```</p>
+
+<p>While this works just fine, however it doesn&rsquo;t play quite as nicely when you&rsquo;re using Turbolinks. While using Turbolinks, this implementation requires you to do a full page load every time you change the stylesheets included in the head. This isn&rsquo;t the end of the world, but wasn&rsquo;t quite the solution I was looking for.</p>
+
+<p>After some more searching, I stumbled across the <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html">SASS lang documentation</a> which included examples for rendering SCSS in rails.</p>
+
+<p>With this knowledge, I was able to insert the computed CSS into my document, without the need to precompile, and without requiring a full page load.</p>
+
+<p>In the end, my solution looked something like this.</p>
+
+<p>``` ruby</p>
+
+<h1>app/helpers/application.rb</h1>
+
+<p>def render_styles_for(stylesheet)
+  path = Rails.root.join(&lsquo;app&rsquo;, &lsquo;assets&rsquo;, &lsquo;stylesheets&rsquo;, styleseet ])</p>
+
+<h1>style: :compact, tells the Sass::Engine to render the SCSS in</h1>
+
+<h1>the minimum amount of space possible</h1>
+
+<p>css = Sass::Engine.new(File.open(path).read, syntax: :scss, style: :compressed)
+  content_tag(&lsquo;style&rsquo;, css.render)
+end</p>
+
+<h1>app/views/some_controller/some_view.html.erb</h1>
+
+<p>&lt;%= render_styles_for(&lsquo;new_styleshseet.scss&rsquo;) %></p>
+
+<h1>Some Content</h1>
+
+
+<p>And a little bit more content</p>
+
+
+<p>```</p>
+
+<p>Now, you could even take this a bit further, and use it to render scss off of the web, or even from the database. All you need to do is pass some text to the <code>Sass::Engine.new</code> method, and it will output scss for you!</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Enabling hstore with a Rails Migration]]></title>
+    <link href="http://aaronmiler.com/blog/enabling-hstore-with-a-rails-migration/"/>
+    <updated>2014-05-16T20:21:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/enabling-hstore-with-a-rails-migration</id>
+    <content type="html"><![CDATA[<p>If you&rsquo;ve used PostgreSQL before with hstore. I&rsquo;m sure you&rsquo;ve come across this while running your migrations.</p>
+
+<p><code>
+PG::UndefinedObject: ERROR:  type "hstore" does not exist
+</code></p>
+
+<!-- more -->
+
+
+<p>Then you have to go into your database, enable hstore, but what if you rebuild the database? You run into that problem all over.</p>
+
+<p>The easiest and most reliable solution I&rsquo;ve found, is to create a migration that runs before all of your other migrations.</p>
+
+<p>Just make sure the timestamp comes before all of the other files, and make the contents of the file look like this:</p>
+
+<p>```ruby</p>
+
+<h1>200001010000_enable_hstore.tb</h1>
+
+<p>class EnableHstore &lt; ActiveRecord::Migration
+  def self.up</p>
+
+<pre><code>execute 'CREATE EXTENSION hstore'
+</code></pre>
+
+<p>  end</p>
+
+<p>  def self.down</p>
+
+<pre><code>execute 'DROP EXTENSION hstore'
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Now, when you migrate your database, the first thing that happens is enabling hstore.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Testing your Rails Engine with Multiple Versions of Rails]]></title>
+    <link href="http://aaronmiler.com/blog/testing-your-rails-engine-with-multiple-versions-of-rails/"/>
+    <updated>2014-05-12T21:14:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/testing-your-rails-engine-with-multiple-versions-of-rails</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been building a rails engine over the past couple of weeks. As I near completion, I wanted to make sure that my engine was compatible with multiple versions of Rails.</p>
+
+<p>The way that I found the easiest was outlined by Richard Schneeman (AKA <a href="https://github.com/schneems">schneems</a>) in his blog post <a href="http://www.schneems.com/post/50991826838/testing-against-multiple-rails-versions/">Testing Against Multiple Rails Versions</a></p>
+
+<!-- more -->
+
+
+<p>His example was given for a gem, using Travis CI. Lucky for me, I was also using Travis to test my engine, and modifying his approach wasn&rsquo;t too crazy.</p>
+
+<p>So, in order to test your Rails Engine against multiple versions of rails you will want to do the following.</p>
+
+<p>First, in your <code>.travis.yml</code> file you&rsquo;ll want to put the following ENV variables
+```yml</p>
+
+<h1>.travs.yml</h1>
+
+<p>env:
+  &ndash; &ldquo;RAILS_VERSION=3.2.0&rdquo;
+  &ndash; &ldquo;RAILS_VERSION=4.0.0&rdquo;
+  &ndash; &ldquo;RAILS_VERSION=4.1.0&rdquo;
+```</p>
+
+<p>You can see here I want to test against <code>Rails 3.2.0</code>, <code>Rails 4.0.0</code>, and <code>Rails 4.1.0</code>. You can put as many/any versions you want in that section.</p>
+
+<p>Next, in your Gemfile put the following code</p>
+
+<p><strong>NOTE</strong>: Not your engine.gemspec file, in the Gemfile in the root directory of your rails Engine</p>
+
+<p>```ruby</p>
+
+<h1>Gemfile</h1>
+
+<p>rails_version = ENV[&ldquo;RAILS_VERSION&rdquo;] || &ldquo;default&rdquo;</p>
+
+<p>rails = case rails_version</p>
+
+<p>when &ldquo;master&rdquo;
+  {github: &ldquo;rails/rails&rdquo;}
+when &ldquo;default&rdquo;
+  &ldquo;>= 3.2.0&rdquo;
+else
+  &ldquo;~> #{rails_version}&rdquo;
+end</p>
+
+<p>gem &ldquo;rails&rdquo;, rails
+```</p>
+
+<p>Lastly, make sure in your <code>.gitignore</code> file you add your <code>Gemfile.lock</code>. This will make sure that Travis rebuilds the gems for your engine every time it tests against a new environment variable.</p>
+
+<p>After that you&rsquo;re all done, you&rsquo;ll see that the number of test runs on Travis go up pretty substantially. As you can see in the image below Travis is testing against 3 different versions of Ruby, and 3 different versions of Rails. My tests may take longer now, but it&rsquo;s nice to know</p>
+
+<p><img src="/images/travis_tests.png" title="Travis Tests" alt="Travis Tests" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Using Elasticsearch with Ruby and Rails]]></title>
+    <link href="http://aaronmiler.com/blog/using-elasticsearch-with-ruby-and-rails/"/>
+    <updated>2014-03-30T17:12:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/using-elasticsearch-with-ruby-and-rails</id>
+    <content type="html"><![CDATA[<p>At work I&rsquo;ve been working on replacing our current product search (currently powered by a SaaS) with Elasticsearch. When I first started I set out to find what Ruby gem I should use on this project.</p>
+
+<p>I found a couple of very impressive gems, such as <a href="https://github.com/ankane/searchkick">Search Kick</a>, but unfortunately Search Kick currently doesn&rsquo;t support Mongoid, so I kept looking.</p>
+
+<!-- more -->
+
+
+<p>After burning through a couple of other gems, all I&rsquo;m left with now is the <a href="https://github.com/elasticsearch/elasticsearch-ruby">Elasticsearch Ruby Gem</a></p>
+
+<p>Here are some tricks I used that I think made using the Elasticsearch gem easy.</p>
+
+<p>Most methods are called against an Elasticsearch object. So in my model, I decided to store that object on initialization.</p>
+
+<p>``` ruby
+class Search
+  attr_accessor :connection
+  def initialize</p>
+
+<pre><code>@connection = Elasticsearch::Client.new hosts: ["myhost1","myhost2" ], randomize_hosts: true
+</code></pre>
+
+<p>  end
+end
+<code>``
+The</code>randomized_hosts: true` allows you the load balance your Elasticsearch hosts</p>
+
+<p>With the above code I can make queries in my model like so
+``` ruby
+def look_for(query)
+self.connection.search index: &ldquo;index_name&rdquo;, body: {</p>
+
+<pre><code>query: {
+  terms: {
+    FIELD: [
+      "VALUE1",
+      "VALUE2"
+     ]
+  }
+},
+size: 25
+</code></pre>
+
+<p>  }
+end
+```
+I found building queries in my ruby code to be quite annoying. Mainly because it took too long for me to get error messages from my Elasticsearch server and tests.</p>
+
+<p>Then I found <a href="https://chrome.google.com/webstore/detail/sense/doinijnbnggojdlcjifpdckfokbbfpbo">Sense</a>. Sense is a chrome extension that allows you to build JSON based queries, that can be converted into the Ruby query DSL rather easily.</p>
+
+<p>Here is the JSON query
+``` javascript
+&ldquo;query&rdquo;: {</p>
+
+<pre><code>"terms": {
+   "FIELD": [
+      "VALUE1",
+      "VALUE2"
+   ]
+}
+</code></pre>
+
+<p>}
+```</p>
+
+<p>You can see how it translates to the ruby DSL above. The feedback is quick, and it&rsquo;s a great way to test out your queries without doing a ton of modifications to your models.</p>
+
+<p>One of the last roadblocks I ran into was dealing with Facets. I wanted to facet the products based on what Category they were in. Thing is, categories aren&rsquo;t always one word. By default Elasticsearch breaks up all of the words you want to facet. So a category like <code>Category Name</code> would come back with results something like this
+```
+&ldquo;terms&rdquo;: [</p>
+
+<pre><code>        {
+           "term": "Category",
+           "count": 1
+        },
+        {
+           "term": "Name",
+           "count": 1
+        },
+</code></pre>
+
+<p>]
+```</p>
+
+<p>What I wanted is this
+```
+&ldquo;terms&rdquo;: [</p>
+
+<pre><code>        {
+           "term": "Category Name",
+           "count": 1
+        }
+</code></pre>
+
+<p>]
+```</p>
+
+<p>To get there I found out I have to make sure anything I want to facet on (that will have more than 1 word) need to have their indexing set to <code>not_analyzed</code>. Now if you try to index something to an Elasticsearch index that doesn&rsquo;t exist, it will create it for you. But to get a column to be set as not_analyzed you need to create it yourself.</p>
+
+<p>You can do it pretty easily like this
+``` ruby
+  def create_index</p>
+
+<pre><code>self.connection.indices.create index: MYINDEXNAME,
+  body: {
+    mappings: {
+      TYPE: {
+        properties: {
+          field: { type: 'string', index: 'not_analyzed'}
+        }
+      }
+    }
+  }
+</code></pre>
+
+<p>  end
+```</p>
+
+<p>My current roadblock is I can&rsquo;t put any sort of Ruby logic into the middle of the Elasticsearch query DSL, and I can&rsquo;t query for blank as it returns no results.</p>
+
+<p>We&rsquo;ll see if something like that is possible, if not I may end up moving to another gem all together.</p>
+]]></content>
+  </entry>
+  
+</feed>

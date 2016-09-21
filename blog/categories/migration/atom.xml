@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Migration | Aaron Miler]]></title>
+  <link href="http://aaronmiler.com/blog/categories/migration/atom.xml" rel="self"/>
+  <link href="http://aaronmiler.com/"/>
+  <updated>2016-09-21T11:08:57-07:00</updated>
+  <id>http://aaronmiler.com/</id>
+  <author>
+    <name><![CDATA[Aaron Miler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Enabling hstore with a Rails Migration]]></title>
+    <link href="http://aaronmiler.com/blog/enabling-hstore-with-a-rails-migration/"/>
+    <updated>2014-05-16T20:21:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/enabling-hstore-with-a-rails-migration</id>
+    <content type="html"><![CDATA[<p>If you&rsquo;ve used PostgreSQL before with hstore. I&rsquo;m sure you&rsquo;ve come across this while running your migrations.</p>
+
+<p><code>
+PG::UndefinedObject: ERROR:  type "hstore" does not exist
+</code></p>
+
+<!-- more -->
+
+
+<p>Then you have to go into your database, enable hstore, but what if you rebuild the database? You run into that problem all over.</p>
+
+<p>The easiest and most reliable solution I&rsquo;ve found, is to create a migration that runs before all of your other migrations.</p>
+
+<p>Just make sure the timestamp comes before all of the other files, and make the contents of the file look like this:</p>
+
+<p>```ruby</p>
+
+<h1>200001010000_enable_hstore.tb</h1>
+
+<p>class EnableHstore &lt; ActiveRecord::Migration
+  def self.up</p>
+
+<pre><code>execute 'CREATE EXTENSION hstore'
+</code></pre>
+
+<p>  end</p>
+
+<p>  def self.down</p>
+
+<pre><code>execute 'DROP EXTENSION hstore'
+</code></pre>
+
+<p>  end
+end
+```</p>
+
+<p>Now, when you migrate your database, the first thing that happens is enabling hstore.</p>
+]]></content>
+  </entry>
+  
+</feed>

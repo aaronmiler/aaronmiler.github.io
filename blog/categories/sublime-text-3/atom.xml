@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Sublime Text 3 | Aaron Miler]]></title>
+  <link href="http://aaronmiler.com/blog/categories/sublime-text-3/atom.xml" rel="self"/>
+  <link href="http://aaronmiler.com/"/>
+  <updated>2016-09-21T11:08:57-07:00</updated>
+  <id>http://aaronmiler.com/</id>
+  <author>
+    <name><![CDATA[Aaron Miler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Making the ST/STT Shortcut work with Sublime Text 3]]></title>
+    <link href="http://aaronmiler.com/blog/making-the-st-slash-stt-shortcut-work-with-sublime-text-3/"/>
+    <updated>2013-10-22T22:08:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/making-the-st-slash-stt-shortcut-work-with-sublime-text-3</id>
+    <content type="html"><![CDATA[<p>I recently made the switch to Sublime Text 3. When I did this I finally removed the Sublime Text 2 application from my computer so I would quit having two instances of Sublime Text open at the same time.</p>
+
+<!-- more -->
+
+
+<p>When I did this, this happened.
+<img src="/images/broken-zsh.png" alt="Broken Command" /></p>
+
+<p>Whoops, I broke one of my favorite short cuts. Oh-My-ZSH has a shortcut to open a file/directory in Sublime Text.</p>
+
+<p>You can run <code>st</code> to open a file, or <code>stt</code> to open the current directory in Sublime Text.</p>
+
+<p>After the upgrade I broke that shortcut. The Sublime Text 3 application file name is just <code>Sublime Text.app</code> instead of Sublime Text 2 shortcut of <code>Sublime Text 2.app</code>.</p>
+
+<p>To fix it I simply went into the Sublime Text 2 plugin within ZSH (found here <code>~/.oh-my-zsh/plugins/sublime</code>) from this:
+```
+local <em>sublime_darwin_paths > /dev/null 2>&amp;1
+</em>sublime_darwin_paths=(</p>
+
+<pre><code>"/usr/local/bin/subl"
+"$HOME/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
+"$HOME/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+"/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
+"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+</code></pre>
+
+<p>)
+```</p>
+
+<p>to this:
+```
+local <em>sublime_darwin_paths > /dev/null 2>&amp;1
+</em>sublime_darwin_paths=(</p>
+
+<pre><code>"/usr/local/bin/subl"
+"$HOME/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+"$HOME/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+"/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+</code></pre>
+
+<p>)
+```</p>
+
+<p>The only small change I had to make was line 4, and 6, and just like that, one of my favorite ZSH shortcuts is fixed! If your Sublime Text 3 application is named <code>Sublime Text 3.app</code> I would assume that you&rsquo;d just have to change the 2, to a 3, and that would fix the problem just as easily.</p>
+
+<p>Hooray!</p>
+]]></content>
+  </entry>
+  
+</feed>

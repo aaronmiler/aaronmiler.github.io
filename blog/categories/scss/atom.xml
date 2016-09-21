@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SCSS | Aaron Miler]]></title>
   <link href="http://aaronmiler.com/blog/categories/scss/atom.xml" rel="self"/>
   <link href="http://aaronmiler.com/"/>
-  <updated>2015-02-09T19:10:05-08:00</updated>
+  <updated>2016-09-21T11:08:57-07:00</updated>
   <id>http://aaronmiler.com/</id>
   <author>
     <name><![CDATA[Aaron Miler]]></name>
@@ -12,6 +12,68 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Dynamic SCSS Rendering with Rails]]></title>
+    <link href="http://aaronmiler.com/blog/dynamic-scss-rendering/"/>
+    <updated>2016-06-05T18:55:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/dynamic-scss-rendering</id>
+    <content type="html"><![CDATA[<h1>Dynamically Rendering SCSS in Rails</h1>
+
+<p>Recently at I came across a problem where I needed to dynamically include a stylesheet, or scss snippet depending on what kind of content I was showing. My first inclination was to use something like this:</p>
+
+<p>``` ruby</p>
+
+<h1>app/views/layouts.application.html.erb</h1>
+
+<p>&hellip;
+&lt;%= yield :head %></p>
+
+<h1>app/views/some_controller/some_view.html.erb</h1>
+
+<p>&lt;% content_for :head do %>
+  &lt;%= stylesheet_link_tag &lsquo;/path_to/stylesheet.css&rsquo; %>
+&lt;% end %>
+```</p>
+
+<p>While this works just fine, however it doesn&rsquo;t play quite as nicely when you&rsquo;re using Turbolinks. While using Turbolinks, this implementation requires you to do a full page load every time you change the stylesheets included in the head. This isn&rsquo;t the end of the world, but wasn&rsquo;t quite the solution I was looking for.</p>
+
+<p>After some more searching, I stumbled across the <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html">SASS lang documentation</a> which included examples for rendering SCSS in rails.</p>
+
+<p>With this knowledge, I was able to insert the computed CSS into my document, without the need to precompile, and without requiring a full page load.</p>
+
+<p>In the end, my solution looked something like this.</p>
+
+<p>``` ruby</p>
+
+<h1>app/helpers/application.rb</h1>
+
+<p>def render_styles_for(stylesheet)
+  path = Rails.root.join(&lsquo;app&rsquo;, &lsquo;assets&rsquo;, &lsquo;stylesheets&rsquo;, styleseet ])</p>
+
+<h1>style: :compact, tells the Sass::Engine to render the SCSS in</h1>
+
+<h1>the minimum amount of space possible</h1>
+
+<p>css = Sass::Engine.new(File.open(path).read, syntax: :scss, style: :compressed)
+  content_tag(&lsquo;style&rsquo;, css.render)
+end</p>
+
+<h1>app/views/some_controller/some_view.html.erb</h1>
+
+<p>&lt;%= render_styles_for(&lsquo;new_styleshseet.scss&rsquo;) %></p>
+
+<h1>Some Content</h1>
+
+
+<p>And a little bit more content</p>
+
+
+<p>```</p>
+
+<p>Now, you could even take this a bit further, and use it to render scss off of the web, or even from the database. All you need to do is pass some text to the <code>Sass::Engine.new</code> method, and it will output scss for you!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[9 Line Grid using Bourbon, Neat and Sass]]></title>

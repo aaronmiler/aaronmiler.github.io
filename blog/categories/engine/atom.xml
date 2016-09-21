@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Engine | Aaron Miler]]></title>
+  <link href="http://aaronmiler.com/blog/categories/engine/atom.xml" rel="self"/>
+  <link href="http://aaronmiler.com/"/>
+  <updated>2016-09-21T11:08:57-07:00</updated>
+  <id>http://aaronmiler.com/</id>
+  <author>
+    <name><![CDATA[Aaron Miler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Testing your Rails Engine with Multiple Versions of Rails]]></title>
+    <link href="http://aaronmiler.com/blog/testing-your-rails-engine-with-multiple-versions-of-rails/"/>
+    <updated>2014-05-12T21:14:00-07:00</updated>
+    <id>http://aaronmiler.com/blog/testing-your-rails-engine-with-multiple-versions-of-rails</id>
+    <content type="html"><![CDATA[<p>I&rsquo;ve been building a rails engine over the past couple of weeks. As I near completion, I wanted to make sure that my engine was compatible with multiple versions of Rails.</p>
+
+<p>The way that I found the easiest was outlined by Richard Schneeman (AKA <a href="https://github.com/schneems">schneems</a>) in his blog post <a href="http://www.schneems.com/post/50991826838/testing-against-multiple-rails-versions/">Testing Against Multiple Rails Versions</a></p>
+
+<!-- more -->
+
+
+<p>His example was given for a gem, using Travis CI. Lucky for me, I was also using Travis to test my engine, and modifying his approach wasn&rsquo;t too crazy.</p>
+
+<p>So, in order to test your Rails Engine against multiple versions of rails you will want to do the following.</p>
+
+<p>First, in your <code>.travis.yml</code> file you&rsquo;ll want to put the following ENV variables
+```yml</p>
+
+<h1>.travs.yml</h1>
+
+<p>env:
+  &ndash; &ldquo;RAILS_VERSION=3.2.0&rdquo;
+  &ndash; &ldquo;RAILS_VERSION=4.0.0&rdquo;
+  &ndash; &ldquo;RAILS_VERSION=4.1.0&rdquo;
+```</p>
+
+<p>You can see here I want to test against <code>Rails 3.2.0</code>, <code>Rails 4.0.0</code>, and <code>Rails 4.1.0</code>. You can put as many/any versions you want in that section.</p>
+
+<p>Next, in your Gemfile put the following code</p>
+
+<p><strong>NOTE</strong>: Not your engine.gemspec file, in the Gemfile in the root directory of your rails Engine</p>
+
+<p>```ruby</p>
+
+<h1>Gemfile</h1>
+
+<p>rails_version = ENV[&ldquo;RAILS_VERSION&rdquo;] || &ldquo;default&rdquo;</p>
+
+<p>rails = case rails_version</p>
+
+<p>when &ldquo;master&rdquo;
+  {github: &ldquo;rails/rails&rdquo;}
+when &ldquo;default&rdquo;
+  &ldquo;>= 3.2.0&rdquo;
+else
+  &ldquo;~> #{rails_version}&rdquo;
+end</p>
+
+<p>gem &ldquo;rails&rdquo;, rails
+```</p>
+
+<p>Lastly, make sure in your <code>.gitignore</code> file you add your <code>Gemfile.lock</code>. This will make sure that Travis rebuilds the gems for your engine every time it tests against a new environment variable.</p>
+
+<p>After that you&rsquo;re all done, you&rsquo;ll see that the number of test runs on Travis go up pretty substantially. As you can see in the image below Travis is testing against 3 different versions of Ruby, and 3 different versions of Rails. My tests may take longer now, but it&rsquo;s nice to know</p>
+
+<p><img src="/images/travis_tests.png" title="Travis Tests" alt="Travis Tests" /></p>
+]]></content>
+  </entry>
+  
+</feed>
