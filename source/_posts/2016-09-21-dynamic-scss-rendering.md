@@ -1,6 +1,12 @@
+---
+layout: post
+title: "Dynamic SCSS Rendering with Rails"
+date: 2016-6-05 18:55
+comments: true
+categories: [SCSS,Rails]
+---
+
 # Dynamically Rendering SCSS in Rails
-
-
 
 Recently at I came across a problem where I needed to dynamically include a stylesheet, or scss snippet depending on what kind of content I was showing. My first inclination was to use something like this:
 
@@ -15,8 +21,6 @@ Recently at I came across a problem where I needed to dynamically include a styl
 <% end %>
 ```
 
-
-
 While this works just fine, however it doesn't play quite as nicely when you're using Turbolinks. While using Turbolinks, this implementation requires you to do a full page load every time you change the stylesheets included in the head. This isn't the end of the world, but wasn't quite the solution I was looking for.
 
 After some more searching, I stumbled across the [SASS lang documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html) which included examples for rendering SCSS in rails.
@@ -24,8 +28,6 @@ After some more searching, I stumbled across the [SASS lang documentation](http:
 With this knowledge, I was able to insert the computed CSS into my document, without the need to precompile, and without requiring a full page load.
 
 In the end, my solution looked something like this.
-
-
 
 ``` ruby
 # app/helpers/application.rb
