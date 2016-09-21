@@ -21,6 +21,8 @@ Recently at I came across a problem where I needed to dynamically include a styl
 <% end %>
 ```
 
+<!-- more -->
+
 While this works just fine, however it doesn't play quite as nicely when you're using Turbolinks. While using Turbolinks, this implementation requires you to do a full page load every time you change the stylesheets included in the head. This isn't the end of the world, but wasn't quite the solution I was looking for.
 
 After some more searching, I stumbled across the [SASS lang documentation](http://sass-lang.com/documentation/file.SASS_REFERENCE.html) which included examples for rendering SCSS in rails.
