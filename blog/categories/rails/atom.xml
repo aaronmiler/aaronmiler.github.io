@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rails | Aaron Miler]]></title>
   <link href="http://aaronmiler.com/blog/categories/rails/atom.xml" rel="self"/>
   <link href="http://aaronmiler.com/"/>
-  <updated>2016-09-21T11:08:57-07:00</updated>
+  <updated>2016-09-21T11:10:06-07:00</updated>
   <id>http://aaronmiler.com/</id>
   <author>
     <name><![CDATA[Aaron Miler]]></name>
@@ -35,6 +35,9 @@
   &lt;%= stylesheet_link_tag &lsquo;/path_to/stylesheet.css&rsquo; %>
 &lt;% end %>
 ```</p>
+
+<!-- more -->
+
 
 <p>While this works just fine, however it doesn&rsquo;t play quite as nicely when you&rsquo;re using Turbolinks. While using Turbolinks, this implementation requires you to do a full page load every time you change the stylesheets included in the head. This isn&rsquo;t the end of the world, but wasn&rsquo;t quite the solution I was looking for.</p>
 
