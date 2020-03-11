@@ -4,10 +4,10 @@
 
 url: http://aaronmiler.com
 title: Aaron Miler
-subtitle:
+subtitle: My Website
 author: Aaron Miler
 simple_search: http://google.com/search
-description: "The personal site and blog of Aaron Miler, a Portland Oregon based web developer, who is currently enamoured with Ruby, Rails, and learning new technologies."
+description: "The personal site and blog of Aaron Miler, a Portland Oregon based Software Engineer."
 
 # Default date format is "ordinal" (resulting in "July 22nd 2007")
 # You can customize the format as defined in
@@ -30,15 +30,9 @@ root: /
 permalink: /blog/:title/
 source: source
 destination: public
-plugins: plugins
+plugins_dir: /plugins
 code_dir: downloads/code
 category_dir: blog/categories
-markdown: rdiscount
-rdiscount:
-  extensions:
-    - autolink
-    - footnotes
-    - smart
 pygments: false # default python pygments have been replaced by pygments.rb
 
 paginate: 8        # Posts per page on the blog index

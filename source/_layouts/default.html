@@ -1,30 +1,38 @@
 {% capture root_url %}{{ site.root | strip_slash }}{% endcapture %}
 {% include head.html %}
-<body {% if page.body_id %} id="{{ page.body_id }}" {% endif %} {% if page.sidebar == false %} class="no-sidebar" {% endif %} {% if page.sidebar == 'collapse' or site.sidebar == 'collapse' %} class="collapse-sidebar sidebar-footer" {% endif %}>
-  <div class="navbar navbar-inverse navbar-static-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-          <span class="fui-menu-24"></span>
-        </a>
-        <div class="nav-collapse collapse navbar-responsive-collapse" style="height:0;">
-          {% include navigation.html %}
+<body {% if page.body_id %} id="{{ page.body_id }}" {% endif %} {% if page.sidebar == false %} class="no-sidebar is-preload {% endif %} {% if page.sidebar == 'collapse' or site.sidebar == 'collapse' %} class="collapse-sidebar sidebar-footer" {% endif %}>
+  <!-- Header -->
+  <section id="header">
+    <header>
+      <span class="image avatar"><img src="/assets/images/mls_cup.jpg" alt="" /></span>
+      <h1 id="logo"><a href="#">Aaron Miler</a></h1>
+      <p>Software Engineer, Tinkerer, Cider Maker, Husky Owner, Timbers Fan</p>
+    </header>
+    {% include navigation.html %}
+  </section>
+  <!-- Wrapper -->
+  <div id="wrapper">
+    <!-- One -->
+    <section id="one">
+      <div class="image main" data-position="center">
+        <img src="/assets/images/game.jpeg" alt="" />
+      </div>
+      {% if page.url == '/' %}
+        <div class="container">
+          <header class="major">
+            <h2>Hi there!</h2>
+            <p>I'm Aaron Miler, a Software Engineer based in Portland Oregon. </p>
+          </header>
+          <p>When I'm not behind the computer screen hacking away, you can find me at Timbers games, hiking the beautiful Columbia River Gorge, making cider, and pestering my dogs.</p>
         </div>
-      </div>
-    </div>
+      {% endif %}
+    </section>
+
+    {{ content | expand_urls: root_url }}
+
   </div>
-  <div class="container" id="main">
-      <div class="row-fluid">
-        <div id="content">
-          {{ content | expand_urls: root_url }}
-        </div>
-      </div>
-      <div class="row-fluid">
-        <footer class="footer-page" role="contentinfo">
-          {% include footer.html %}
-        </footer>
-      </div>
-  </div>
-  {% include after_footer.html %}
+
+  <!-- Footer -->
+  {% include footer.html %}
 </body>
 </html>
