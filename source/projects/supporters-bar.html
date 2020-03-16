@@ -1,0 +1,51 @@
+---
+title: Supporter's Bar Case Study
+layout: default
+---
+
+<div class="container">
+  <header class="major">
+    <h2><a href="https://supportersbar.com" target="_blank">Supporter's Bar</a></h2>
+  </header>
+
+  <h4>User Story</h4>
+  <p>
+    If you spend enough time in an online community for a soccer team. Someone eventually
+    will ask a question along the lines of
+    <code>"Are there any good bars for watching the game in #{LOCATION}?"</code>
+    Supporter's Bar intends to answer that question, a little bit more througouhly.
+    Utilizing some data scraped from an existing list, I built a backend, and front end
+    for soccer fans.
+    <br/><br/>
+    Supporter's Bar was built to answer this question, primarily for myself when I travel,
+    but with enough data, it could become the go to source for soccer fans.
+  </p>
+
+  <h4>Technology Used</h4>
+  <ul>
+    <li>Ruby on Rails</li>
+    <li>PostgreSQL</li>
+    <li>React</li>
+    <li>MapBox and LeafletJS</li>
+    <li>Google Places API</li>
+    <li>Webpack with CoffeeScript</li>
+  </ul>
+
+  <h4>Components</h4>
+  <h5>Interacive Map</h5>
+  <p>
+    Much like <a href="/projects/maptribution">Maptribution</a>, Supporter's Bar
+    utilized Leaflet, MapBox, and React to implement the map. The cheif difference
+    between the two, is where the backend is focused. Using PostGIS, and Ruby's Geocoder
+    gem, we search the database for locations that meet our criteria near our starting
+    Lat/Long.
+  </p>
+
+  <h5>Google Places API</h5>
+  <p>
+    While I started out with a dataset of bars already. I thought that <code>"You can watch
+    the game at #{BAR}"</code> was a pretty boring answer. Using the Google Places API,
+    I'm able to pull some extra data. Like contact information, price range, and overall
+    rating on Google.
+  </p>
+</div>

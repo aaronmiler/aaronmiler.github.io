@@ -2,7 +2,7 @@ source "http://rubygems.org"
 
 group :development do
   gem 'rake'
-  gem 'jekyll', '~> 4'
+  gem 'jekyll', '~> 3'
   gem 'rdiscount'
   gem 'pygments.rb'
   gem 'RedCloth', '~> 4.2.9'

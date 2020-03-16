@@ -1,0 +1,71 @@
+---
+title: Classroomify Case Study
+layout: default
+---
+
+<div class="container">
+  <header class="major">
+    <h2><a href="https://classromify.lessoneer.com" target="_blank">Classroomify</a></h2>
+    <p>Case Study</p>
+  </header>
+
+  <h4>User Story</h4>
+  <p>
+    Classroomify was born out of an internal requirement. We had added Google's own
+    <code>Add to Google Classroom</code> button to our product. But our user's weren't
+    happy with the way Google had implemented it. User's wanted a way to create an assignment,
+    share it to their class, or
+  </p>
+
+  <h4>Technology Used</h4>
+  <ul>
+    <li>Ruby on Rails</li>
+    <li>PostgreSQL</li>
+    <li>PDF.js</li>
+    <li>React</li>
+    <li>PDFtk</li>
+    <li>Sidekiq</li>
+    <li>Webpack with CoffeeScript</li>
+  </ul>
+
+  <h4>Components</h4>
+  <h5>Page Selector</h5>
+  <p>
+    The page selector on Splitr posed an interesting problem. Because of the desire to
+    quickly display the PDF to the user, we used PDF.js to render it's contents to a canvas.
+    However, if we used React, anytime the application thought it needed to rerender the
+    component, PDF.js would have to rerun. This meant that the Page Selector, and rendering
+    had to be written to vanilla Javascript. Using Object Oriented patterns, I created a
+    Service Object, that acts as our stand in "Component" for the page selector.
+  </p>
+
+  <h5>Site Crawler</h5>
+  <p>
+    In addition to being able to directly upload a PDF, and split it. We wanted to give
+    users the option to select PDFs from a webpage. In order to make this work, I created
+    a web crawler, that crawls the given (public) URL from the user, and returns to them
+    a list of the PDFs that we believe we're able to split. In addition to doing a simple
+    search of the HTML for a .pdf extension. The cralwer also does it's best to do a <code>HEAD</code>
+    request to other URLs, to try and determine if there are PDFs at the end of the URL.
+  </p>
+
+  <h5>Page Suggestions</h5>
+  <p>
+    Using data that we'd collected developing <a href='/projects/lessoneer'>Lessoneer</a> we
+    knew where some documents began within larger PDFs. Utilizing AWS Mechanical Turk, I built an
+    interface for people to help us identify the page ranges for sub-documents.
+    <br/>
+    <a href="https://splitr.io/website?url=https%3A%2F%2Fwww.engageny.org%2Fresource%2Fgrade-8-mathematics-module-5" target="_blank">Example Page</a>
+  </p>
+
+  <h5>Chrome extension</h5>
+  <p>
+    With the cralwer built above, we wanted to give teachers a quick way to crawl a webpage
+    for PDFs. So I built a simple chrome extension, that opens up their currently active URL
+    and tab, in Splitr. Allowing them to streamline their process, and get their file with
+    fewer steps.
+  </p>
+
+
+
+</div>

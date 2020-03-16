@@ -1,0 +1,89 @@
+---
+title: Resourcify Case Study
+layout: default
+---
+
+<div class="container">
+  <header class="major">
+    <h2><a href="https://Resourcify.lessoneer.com" target="_blank">Resourcify</a></h2>
+    <p>Case Study</p>
+  </header>
+
+  <h4>User Story</h4>
+  <p>
+    There are a number of freely avilable curriculum that teachers use. However, these
+    curriculum are hosted in a few different places across the web. There are some great
+    lists of supplemental resources, but they aren't available on any of the sites. Using
+    a chrome extension, we should be able to provide the user with supplemental resources
+    for whatever content they're viewing.
+  </p>
+
+  <h4>Technology Used</h4>
+  <div class="row gtr-uniform">
+    <div class="col-6 col-12-xsmall">
+      <h5>API Server</h5>
+      <ul>
+        <li>Ruby on Rails</li>
+        <li>Sidekiq</li>
+        <li>PostgreSQL</li>
+      </ul>
+    </div>
+    <div class="col-6 col-12-xsmall">
+      <h5>Chrome Extension</h5>
+      <ul>
+        <li>React</li>
+        <li>Gulp</li>
+        <li>CoffeeScript</li>
+      </ul>
+    </div>
+  </div>
+
+  <h4>Components</h4>
+  <h5>API Server</h5>
+  <p>
+    The chrome extension communicates with the rails server via asyncronis calls. Because
+    we need to check what page the user is on, which can happen frequiently. These requests
+    need to be fast. With that in mind, the API is built to pass the least amount of data
+    possible, over multiple requests when the criteria is met.
+  </p>
+
+  <h5>Authentication</h5>
+  <p>
+    Resroucify's authentication was custom built out of the box. We knew that we'd want to
+    allow users to safely log in using the extension, as well as on the site itself. So
+    I decided the safest way was to email the user a one time use pin for logging in.
+    Doing this allowed us to know the user could be logged in securely, even though we
+    don't have full control over where they log in from.
+  </p>
+
+  <h5>Content Awareness</h5>
+  <p>
+    On navigation, the chrome extension asks the API server if it has any information about
+    the current page it's on. If the server knows about the page, the extension proceeds
+    to the next URL to get the full information. This allows the user to have all the
+    initial data preloaded for them, before the extension is open.
+  </p>
+
+  <h5>Extension</h5>
+  <p>
+    The extension is a button in the extension area of their Chrome browser. The extension
+    let's the user know when it's found resources, by changing color, and adding a badge
+    with the count of resources.
+    <br/>
+    Building out the extension proved to be a tricky front-end problem to solve. Since we are
+    injecting code into an unknown site. We needed to make sure that both the styles, and the
+    Javascript code we wrote were scopped correctly. This meant styles had to be very explicit,
+    and almost nothing could be left to the "default" as that coudl vary from site to site.
+  </p>
+
+  <h5>Social Network Features</h5>
+  <p>
+    We decided early on we'd want users to be able to vote (in a positive way) and comment on
+    the resources that we made available. So we built in some social networking features.
+    Once you create an account on the site, it allows you <code>Like</code> cards, comment on them,
+    and even add your own. We also built a profile page, that can act as a shortcut for users to view
+    the cards they've interacted with over time.
+    <br/>
+    <a href="https://resourcify.lessoneer.com/profile/aaronmiler" target="_blank">Profile Example</a>
+  </p>
+</div>

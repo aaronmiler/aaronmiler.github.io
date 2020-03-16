@@ -1,0 +1,48 @@
+---
+title: Maptribution Case Study
+layout: default
+---
+
+<div class="container">
+  <header class="major">
+    <h2><a href="https://maptribution.com" target="_blank">Maptribution</a></h2>
+  </header>
+
+  <h4>User Story</h4>
+  <p>
+    Maptribution was built out of a desire to not only save a bit of money, but
+    also build a system that fit our usecase a bit more. I had experience using
+    another applicaiton that was similar for a Shopify store, but it felt like it
+    was lacking in some places. So I built an application that I felt addressed
+    their shortcomings.
+  </p>
+
+  <h4>Technology Used</h4>
+  <ul>
+    <li>Ruby on Rails</li>
+    <li>PostgreSQL</li>
+    <li>React</li>
+    <li>MapBox and LeafletJS</li>
+    <li>Shopify API</li>
+    <li>Webpack with CoffeeScript</li>
+  </ul>
+
+  <h4>Components</h4>
+  <h5>Billing</h5>
+  <p>
+    I decided to build this app without an internal billing. Since the intention
+    was for this app to be used with a Shopify store. I decieded to leverage them
+    for billing. While they take the "standard" 30% cut, implementing this was
+    much more straightforward than implementing stripe billing, and all the failure cases.
+  </p>
+
+  <h5>Map Box & LeafletJS</h5>
+  <p>
+    Since the applicaton was centered on a map, I did some diggin to see what my best
+    option was for implemting it. After some reasearch, I landed on LeafletJS, Leaflet
+    allows a little bit more flexibility, allowing me to not be completely locked
+    in to a vendor. For the data side of things, I built the platform using MapBox.
+    Using Mapbox for location autocomplete, as well as displaying the maps, it's simple
+    for users to create maps of their delivery locations, and embed the map in their site.
+  </p>
+</div>
