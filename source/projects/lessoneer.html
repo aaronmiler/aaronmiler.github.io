@@ -5,7 +5,6 @@ layout: default
 <div class="container">
   <header class="major">
     <h2>Lessoneer</h2>
-    <p>Case Study</p>
   </header>
   <p>
     When I first started at EdCaliber, the company had built a quick prototype
@@ -30,5 +29,55 @@ layout: default
    </p>
    <p>
 
+   <h4>Technology Used</h4>
+   <ul>
+     <li>Ruby on Rails</li>
+     <li>PostgreSQL</li>
+     <li>React</li>
+     <li>Sidekiq</li>
+     <li>Webpack with CoffeeScript</li>
+     <li>In-App Rails Engins for code isolation</li>
+     <li>Scientist for A/B Testing</li>
+     <li>Education Open Standards including CommonCartridge, QTI, and Academic Benchmarks</li>
+   </ul>
+
+   <h4>Components</h4>
+
+   <h5>Content Importing</h5>
+   <p>
+     We needed a way to get curriculum into our system, that was easy for our content team
+     and reliable from an import perspective. We landed on importing a zipfile
+     containing markdown from GitHub. Our content team was given a breif standard of
+     how the files should look, and the system processes the content tree into the system
+     for our users. Along wtih the markdown content came resources to attach, tree structure,
+     and other models within the system to link to the content.
+   </p>
+
+   <h5>Common Cartridge</h5>
+   <p>
+     Common Cartridge is standard format for curriculum. Some Learning Management Systems
+     can export their content as Common Cartridge, and in order to get their content into
+     our system easily, we needed to be able to import it. While Instructure had an
+     open source gem that interfaced with Common Cartridge for Ruby, it had been archived,
+     and was no longer in active development. This required us to fork the gem, and
+     do some troubleshooting, and minor changes to implement the feature. The gem is unfortunatly
+     archived, so the changes were unable to be pushed upstream for others.
+   </p>
+
+   <h5>Academic Benchmark Common Core Standards</h5>
+   <p>
+     Academic Benchmarks is the leader in Learning Standards data. They have a very robust
+     API, that most LMS systems pull from for standards data. Our first implementation of standards
+     was a in-house built import, using our own data. As part of the differentiator for
+     our SaaS was supplemental data we provided with Standards. However, over time, keeping up
+     with changes, and adding new data sets became unruly.
+     <br/><br/>
+     After signing up for the Academic Benchmarks API, we starting leveraging their
+     dataset for the backbone of the Standards data. Once again, Instructure had a
+     Rubygem for interfacing with them, which essentially acted as a parser. So our
+     system was still required to built the data tree in the backend, and assign
+     things properly. There was a small change that was made to their gem, however
+     the <a href="https://github.com/instructure/academic_benchmarks/pull/1" target="_blank">Pull Request</a>
+     I opened has sat untouched for ~3 years.
    </p>
 </div>
